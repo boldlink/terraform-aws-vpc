@@ -1,0 +1,44 @@
+# examples
+
+## Deploying the Resource(s)
+Run the following command to deploy the resource
+```console
+terraform init
+terraform apply
+```
+
+## Destroying/Deleting/Terminating the Resource(s)
+To destroy the resource run the following command
+```console
+terraform destroy
+```
+
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+## Requirements
+
+No requirements.
+
+## Providers
+
+No providers.
+
+## Modules
+
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_aws_vpc"></a> [aws\_vpc](#module\_aws\_vpc) | ./.. | n/a |
+
+## Resources
+
+No resources.
+
+## Inputs
+
+No inputs.
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| <a name="output_outputs"></a> [outputs](#output\_outputs) | n/a |
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
