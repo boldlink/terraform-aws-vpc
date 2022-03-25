@@ -112,10 +112,10 @@ output "database_subnet_id" {
 
 output "public_eks_subnet_id" {
   value       = [aws_subnet.eks_public.*.id]
-  description = "The IDs of the private subnets"
+  description = "The IDs of the public eks subnets"
 }
 
 output "private_eks_subnet_id" {
   value       = [aws_subnet.eks_private.*.id]
-  description = "The IDs of the private subnets"
+  description = "The IDs of the private eks subnets"
 }

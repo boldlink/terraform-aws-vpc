@@ -1,6 +1,7 @@
 # AWS VPC Terraform module
 
 ## Description
+
 This terraform module creates a VPC, public subnets, private subnets with access to the internet using a NAT gateway. It also provides an option of creating isolated subnets, which means they don't have access to the internet. The module can also be used to create EKS and database subnets and the corresponding database subnet groups.
 
 Example available [here](https://github.com/boldlink/terraform-aws-vpc/tree/main/examples)
@@ -65,6 +66,7 @@ No modules.
 | [aws_vpc.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc) | resource |
 | [aws_vpc_dhcp_options.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_dhcp_options) | resource |
 | [aws_vpc_dhcp_options_association.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_dhcp_options_association) | resource |
+| [aws_vpc.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc) | resource |
 
 ## Inputs
 
@@ -85,6 +87,8 @@ No modules.
 | <a name="input_domain_name_servers"></a> [domain\_name\_servers](#input\_domain\_name\_servers) | (Optional) List of name servers to configure in /etc/resolv.conf. If you want to use the default AWS nameservers you should set this to `AmazonProvidedDNS`. | `list(string)` | <pre>[<br>  "AmazonProvidedDNS"<br>]</pre> | no |
 | <a name="input_eks_private_subnets"></a> [eks\_private\_subnets](#input\_eks\_private\_subnets) | The CIDR blocks of the Private EKS subnets | `list(string)` | `[]` | no |
 | <a name="input_eks_public_subnets"></a> [eks\_public\_subnets](#input\_eks\_public\_subnets) | The CIDR blocks of the Public EKS subnets | `list(string)` | `[]` | no |
+| <a name="input_assign_generated_ipv6_cidr_block"></a> [assign\_generated\_ipv6\_cidr\_block](#input\_assign\_generated\_ipv6\_cidr\_block) | (Optional) Requests an Amazon-provided IPv6 CIDR block with a /56 prefix length for the VPC. You cannot specify the range of IP addresses, or the size of the CIDR block. Default is false. Conflicts with `ipv6_ipam_pool_id` | `bool` | `false` | no |
+| <a name="input_cidr_block"></a> [cidr\_block](#input\_cidr\_block) | (Optional) The IPv4 CIDR block for the VPC. CIDR can be explicitly set or it can be derived from IPAM using `ipv4_netmask_length`. | `string` | `null` | no |
 | <a name="input_enable_classiclink"></a> [enable\_classiclink](#input\_enable\_classiclink) | (Optional) A boolean flag to enable/disable ClassicLink for the VPC. Only valid in regions and accounts that support EC2 Classic. See the [ClassicLink documentation](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/vpc-classiclink.html) for more information. Defaults false. | `bool` | `false` | no |
 | <a name="input_enable_classiclink_dns_support"></a> [enable\_classiclink\_dns\_support](#input\_enable\_classiclink\_dns\_support) | (Optional) A boolean flag to enable/disable ClassicLink DNS Support for the VPC. Only valid in regions and accounts that support EC2 Classic. | `bool` | `false` | no |
 | <a name="input_enable_dns_hostnames"></a> [enable\_dns\_hostnames](#input\_enable\_dns\_hostnames) | (Optional) A boolean flag to enable/disable DNS hostnames in the VPC. Defaults `false`. | `bool` | `false` | no |
@@ -116,6 +120,7 @@ No modules.
 | <a name="input_region"></a> [region](#input\_region) | (Required) Enter region where you are deploying resources | `string` | n/a | yes |
 | <a name="input_tag_env"></a> [tag\_env](#input\_tag\_env) | Enter the name of the environment used by the resources | `string` | `null` | no |
 | <a name="input_traffic_type"></a> [traffic\_type](#input\_traffic\_type) | (Required) The type of traffic to capture. Valid values: `ACCEPT`,`REJECT`, `ALL`. | `string` | `"ALL"` | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | (Optional) A map of tags to assign to the resource. If configured with a provider [`default_tags` configuration block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/docs#default_tags-configuration-block) present, tags with matching keys will overwrite those defined at the provider-level. | `map(string)` | `{}` | no |
 
 ## Outputs
 

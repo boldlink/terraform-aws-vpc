@@ -291,3 +291,9 @@ variable "cluster_name" {
   description = "Input name of EKS Cluster. Provide this when creating EKS subnets"
   default     = "none"
 }
+
+variable "tags" {
+  type        = map(string)
+  description = "(Optional) A map of tags to assign to the resource. If configured with a provider [`default_tags` configuration block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/docs#default_tags-configuration-block) present, tags with matching keys will overwrite those defined at the provider-level."
+  default     = {}
+}
