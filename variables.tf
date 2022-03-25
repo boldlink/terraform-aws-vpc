@@ -1,3 +1,7 @@
+/*
+VPC
+*/
+
 variable "cidr_block" {
   type        = string
   description = "(Optional) The IPv4 CIDR block for the VPC. CIDR can be explicitly set or it can be derived from IPAM using `ipv4_netmask_length`."
@@ -74,6 +78,218 @@ variable "assign_generated_ipv6_cidr_block" {
   type        = bool
   description = "(Optional) Requests an Amazon-provided IPv6 CIDR block with a /56 prefix length for the VPC. You cannot specify the range of IP addresses, or the size of the CIDR block. Default is false. Conflicts with `ipv6_ipam_pool_id`"
   default     = false
+}
+
+/*
+VPC flow logs
+*/
+
+variable "traffic_type" {
+  type        = string
+  description = "(Required) The type of traffic to capture. Valid values: `ACCEPT`,`REJECT`, `ALL`."
+  default     = "ALL"
+}
+
+variable "flow_log_eni_id" {
+  type        = string
+  description = "(Optional) Elastic Network Interface ID to attach to"
+  default     = null
+}
+
+variable "log_destination_type" {
+  type        = string
+  description = "(Optional) The type of the logging destination. Valid values: `cloud-watch-logs`, `s3`. Default: `cloud-watch-logs`."
+  default     = "cloud-watch-logs"
+}
+
+variable "flow_log_subnet_id" {
+  type        = string
+  description = "(Optional) Subnet ID to attach to"
+  default     = null
+}
+
+variable "log_format" {
+  type        = string
+  description = "(Optional) The fields to include in the flow log record, in the order in which they should appear."
+  default     = null
+}
+
+variable "max_aggregation_interval" {
+  type        = number
+  description = "(Optional) The maximum interval of time during which a flow of packets is captured and aggregated into a flow log record. Valid Values: `60 seconds (1 minute) or 600 seconds (10 minutes)`. Default: `600`."
+  default     = 600
+}
+
+variable "destination_options" {
+  type        = map(string)
+  description = "(Optional) Describes the destination options for a flow log."
+  default     = {}
+}
+
+/*
+DHCP options Set
+*/
+
+variable "dhcp_domain_name" {
+  type        = string
+  description = "(Optional) the suffix domain name to use by default when resolving non Fully Qualified Domain Names. In other words, this is what ends up being the `search` value in the `/etc/resolv.conf` file."
+  default     = null
+}
+
+variable "domain_name_servers" {
+  type        = list(string)
+  description = "(Optional) List of name servers to configure in /etc/resolv.conf. If you want to use the default AWS nameservers you should set this to `AmazonProvidedDNS`."
+  default     = ["AmazonProvidedDNS"]
+}
+
+variable "ntp_servers" {
+  type        = list(string)
+  description = "(Optional) List of NTP servers to configure."
+  default     = []
+}
+
+variable "netbios_name_servers" {
+  type        = list(string)
+  description = "(Optional) List of NETBIOS name servers."
+  default     = []
+}
+
+variable "netbios_node_type" {
+  type        = number
+  description = "(Optional) The NetBIOS node type (1, 2, 4, or 8). AWS recommends to specify 2 since broadcast and multicast are not supported in their network."
+  default     = 2
+}
+
+/*
+Publiс routes
+*/
+
+variable "propagating_vgws" {
+  type        = list(string)
+  description = "(Optional) A list of virtual gateways for propagation."
+  default     = []
+}
+
+/*
+Subnets & Other resources
+*/
+
+variable "public_subnets" {
+  type        = list(string)
+  description = "The CIDR blocks of the public subnets"
+  default     = []
+}
+
+variable "private_subnets" {
+  type        = list(string)
+  description = "The CIDR blocks of the Private subnets"
+  default     = []
+}
+
+variable "isolated_subnets" {
+  type        = list(string)
+  description = "The CIDR blocks of the Private Isolated subnets, that is, subnets without internet access."
+  default     = []
+}
+
+variable "database_subnets" {
+  type        = list(string)
+  description = "The CIDR blocks of the database subnets"
+  default     = []
+}
+
+variable "eks_public_subnets" {
+  type        = list(string)
+  description = "The CIDR blocks of the Public EKS subnets"
+  default     = []
+}
+
+variable "eks_private_subnets" {
+  type        = list(string)
+  description = "The CIDR blocks of the Private EKS subnets"
+  default     = []
+}
+
+variable "availability_zones" {
+  type        = list(string)
+  description = "List of AZs of the subnets"
+  default     = []
+}
+
+variable "map_public_ip_on_launch" {
+  type        = bool
+  description = "(Optional) Specify true to indicate that instances launched into the subnet should be assigned a public IP address. Default is `false`."
+  default     = false
+}
+
+variable "assign_ipv6_address_on_creation" {
+  type        = bool
+  description = "(Optional) Specify true to indicate that network interfaces created in the specified subnet should be assigned an IPv6 address. Default is `false`."
+  default     = false
+}
+
+variable "nat_multi_az" {
+  type        = bool
+  description = "Choose whether to have one NAT per AZ"
+  default     = false
+}
+
+variable "create_database_subnet_group" {
+  type        = bool
+  description = "Choose whether to create database subnet group."
+  default     = false
+}
+
+variable "create_docdb_subnet_group" {
+  type        = bool
+  description = "Choose whether to create DocumentDB Subnet Group."
+  default     = false
+}
+
+variable "nat_single_az" {
+  type        = bool
+  description = "Choose whether to use only one NAT for all private subnets"
+  default     = false
+}
+
+variable "create_nat_gateway" {
+  type        = bool
+  description = "Specify whether you want to create NAT Gateway(s) or not"
+  default     = false
+}
+
+variable "tag_env" {
+  type        = string
+  description = "Enter the name of the environment used by the resources"
+  default     = null
+}
+
+variable "name" {
+  type        = string
+  description = "Input the name of stack"
+  default     = null
+}
+
+variable "account" {
+  type        = string
+  description = "(Required) Account ID to use to create resources"
+}
+
+variable "region" {
+  type        = string
+  description = "(Required) Enter region where you are deploying resources"
+}
+
+variable "other_tags" {
+  type        = map(string)
+  description = "A map of addition tags to apply to the resources created"
+  default     = {}
+}
+
+variable "cluster_name" {
+  type        = string
+  description = "Input name of EKS Cluster. Provide this when creating EKS subnets"
+  default     = "none"
 }
 
 variable "tags" {
