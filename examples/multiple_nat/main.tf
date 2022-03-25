@@ -11,7 +11,7 @@ data "aws_availability_zones" "available" {
 data "aws_region" "current" {}
 
 locals {
-  name           = "boldlink-test"
+  name           = "boldlink-test-${uuid()}"
   cidr_block     = "10.0.0.0/16"
   tag_env        = "dev"
   public_subnet1 = cidrsubnet(local.cidr_block, 8, 50)
