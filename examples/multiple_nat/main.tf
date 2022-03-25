@@ -49,6 +49,6 @@ module "multiple_nat_vpc" {
 
 output "outputs" {
   value = [
-    module.single_nat_vpc,
+    module.multiple_nat_vpc,
   ]
 }
