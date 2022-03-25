@@ -30,7 +30,7 @@ locals {
   azs = [local.az1, local.az2, local.az3]
 }
 
-module "single_nat_vpc" {
+module "multiple_nat_vpc" {
   source                  = "./../.."
   name                    = local.name
   account                 = data.aws_caller_identity.current.account_id
