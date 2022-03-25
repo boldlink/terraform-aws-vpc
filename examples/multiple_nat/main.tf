@@ -1,5 +1,5 @@
 ################
-## Multile NATS
+## Multiple NATS
 ################
 
 data "aws_caller_identity" "current" {}
