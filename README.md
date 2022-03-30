@@ -66,7 +66,6 @@ No modules.
 | [aws_vpc.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc) | resource |
 | [aws_vpc_dhcp_options.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_dhcp_options) | resource |
 | [aws_vpc_dhcp_options_association.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_dhcp_options_association) | resource |
-| [aws_vpc.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc) | resource |
 
 ## Inputs
 
@@ -87,8 +86,6 @@ No modules.
 | <a name="input_domain_name_servers"></a> [domain\_name\_servers](#input\_domain\_name\_servers) | (Optional) List of name servers to configure in /etc/resolv.conf. If you want to use the default AWS nameservers you should set this to `AmazonProvidedDNS`. | `list(string)` | <pre>[<br>  "AmazonProvidedDNS"<br>]</pre> | no |
 | <a name="input_eks_private_subnets"></a> [eks\_private\_subnets](#input\_eks\_private\_subnets) | The CIDR blocks of the Private EKS subnets | `list(string)` | `[]` | no |
 | <a name="input_eks_public_subnets"></a> [eks\_public\_subnets](#input\_eks\_public\_subnets) | The CIDR blocks of the Public EKS subnets | `list(string)` | `[]` | no |
-| <a name="input_assign_generated_ipv6_cidr_block"></a> [assign\_generated\_ipv6\_cidr\_block](#input\_assign\_generated\_ipv6\_cidr\_block) | (Optional) Requests an Amazon-provided IPv6 CIDR block with a /56 prefix length for the VPC. You cannot specify the range of IP addresses, or the size of the CIDR block. Default is false. Conflicts with `ipv6_ipam_pool_id` | `bool` | `false` | no |
-| <a name="input_cidr_block"></a> [cidr\_block](#input\_cidr\_block) | (Optional) The IPv4 CIDR block for the VPC. CIDR can be explicitly set or it can be derived from IPAM using `ipv4_netmask_length`. | `string` | `null` | no |
 | <a name="input_enable_classiclink"></a> [enable\_classiclink](#input\_enable\_classiclink) | (Optional) A boolean flag to enable/disable ClassicLink for the VPC. Only valid in regions and accounts that support EC2 Classic. See the [ClassicLink documentation](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/vpc-classiclink.html) for more information. Defaults false. | `bool` | `false` | no |
 | <a name="input_enable_classiclink_dns_support"></a> [enable\_classiclink\_dns\_support](#input\_enable\_classiclink\_dns\_support) | (Optional) A boolean flag to enable/disable ClassicLink DNS Support for the VPC. Only valid in regions and accounts that support EC2 Classic. | `bool` | `false` | no |
 | <a name="input_enable_dns_hostnames"></a> [enable\_dns\_hostnames](#input\_enable\_dns\_hostnames) | (Optional) A boolean flag to enable/disable DNS hostnames in the VPC. Defaults `false`. | `bool` | `false` | no |
@@ -119,8 +116,8 @@ No modules.
 | <a name="input_public_subnets"></a> [public\_subnets](#input\_public\_subnets) | The CIDR blocks of the public subnets | `list(string)` | `[]` | no |
 | <a name="input_region"></a> [region](#input\_region) | (Required) Enter region where you are deploying resources | `string` | n/a | yes |
 | <a name="input_tag_env"></a> [tag\_env](#input\_tag\_env) | Enter the name of the environment used by the resources | `string` | `null` | no |
-| <a name="input_traffic_type"></a> [traffic\_type](#input\_traffic\_type) | (Required) The type of traffic to capture. Valid values: `ACCEPT`,`REJECT`, `ALL`. | `string` | `"ALL"` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | (Optional) A map of tags to assign to the resource. If configured with a provider [`default_tags` configuration block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/docs#default_tags-configuration-block) present, tags with matching keys will overwrite those defined at the provider-level. | `map(string)` | `{}` | no |
+| <a name="input_traffic_type"></a> [traffic\_type](#input\_traffic\_type) | (Required) The type of traffic to capture. Valid values: `ACCEPT`,`REJECT`, `ALL`. | `string` | `"ALL"` | no |
 
 ## Outputs
 
@@ -141,11 +138,12 @@ No modules.
 | <a name="output_instance_tenancy"></a> [instance\_tenancy](#output\_instance\_tenancy) | Tenancy of instances spin up within VPC. |
 | <a name="output_ipv6_association_id"></a> [ipv6\_association\_id](#output\_ipv6\_association\_id) | The association ID for the IPv6 CIDR block. |
 | <a name="output_ipv6_cidr_block_network_border_group"></a> [ipv6\_cidr\_block\_network\_border\_group](#output\_ipv6\_cidr\_block\_network\_border\_group) | The Network Border Group Zone name |
+| <a name="output_isolated_subnet_id"></a> [isolated\_subnet\_id](#output\_isolated\_subnet\_id) | The IDs of the isolated private subnets |
 | <a name="output_main_route_table_id"></a> [main\_route\_table\_id](#output\_main\_route\_table\_id) | The ID of the main route table associated with this VPC. Note that you can change a VPC's main route table by using an `aws_main_route_table_association`. |
 | <a name="output_owner_id"></a> [owner\_id](#output\_owner\_id) | The ID of the AWS account that owns the VPC. |
-| <a name="output_private_eks_subnet_id"></a> [private\_eks\_subnet\_id](#output\_private\_eks\_subnet\_id) | The IDs of the private subnets |
+| <a name="output_private_eks_subnet_id"></a> [private\_eks\_subnet\_id](#output\_private\_eks\_subnet\_id) | The IDs of the private eks subnets |
 | <a name="output_private_subnet_id"></a> [private\_subnet\_id](#output\_private\_subnet\_id) | The IDs of the private subnets |
-| <a name="output_public_eks_subnet_id"></a> [public\_eks\_subnet\_id](#output\_public\_eks\_subnet\_id) | The IDs of the private subnets |
+| <a name="output_public_eks_subnet_id"></a> [public\_eks\_subnet\_id](#output\_public\_eks\_subnet\_id) | The IDs of the public eks subnets |
 | <a name="output_public_subnet_id"></a> [public\_subnet\_id](#output\_public\_subnet\_id) | The IDs of the public subnets |
 | <a name="output_tags_all"></a> [tags\_all](#output\_tags\_all) | A map of tags assigned to the resource, including those inherited from the provider [`default_tags` configuration block](https://registry.terraform.io/docs/providers/aws/index#default_tags-configuration-block). |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
