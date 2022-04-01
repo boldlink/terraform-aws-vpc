@@ -250,12 +250,12 @@ resource "aws_subnet" "private" {
 ####################
 
 resource "aws_eip" "single_az" {
-  count = var.create_nat_gateway && var.nat_single_az ? 1 : 0
+  count = var.create_nat_gateway && var.nat_single_az && var.nat_multi_az == false ? 1 : 0
   vpc   = true
 }
 
 resource "aws_eip" "multi_az" {
-  count = var.create_nat_gateway && var.nat_multi_az ? length(var.private_subnets) : 0
+  count = var.create_nat_gateway && var.nat_multi_az && var.nat_single_az == false ? length(var.private_subnets) : 0
   vpc   = true
 }
 
@@ -264,7 +264,7 @@ resource "aws_eip" "multi_az" {
 ####################
 
 resource "aws_nat_gateway" "single_az" {
-  count         = var.create_nat_gateway && var.nat_single_az ? 1 : 0
+  count         = var.create_nat_gateway && var.nat_single_az && var.nat_multi_az == false ? 1 : 0
   allocation_id = aws_eip.single_az[0].id
   subnet_id     = aws_subnet.public[0].id
   tags = merge(
@@ -277,7 +277,7 @@ resource "aws_nat_gateway" "single_az" {
 }
 
 resource "aws_nat_gateway" "multi_az" {
-  count         = var.create_nat_gateway && var.nat_multi_az ? length(var.private_subnets) : 0
+  count         = var.create_nat_gateway && var.nat_multi_az && var.nat_single_az == false ? length(var.private_subnets) : 0
   allocation_id = element(aws_eip.multi_az.*.id, count.index)
   subnet_id     = element(aws_subnet.public.*.id, count.index)
   tags = merge(
@@ -290,14 +290,14 @@ resource "aws_nat_gateway" "multi_az" {
 }
 
 resource "aws_route" "private_single_az_nat_gateway" {
-  count                  = var.create_nat_gateway && var.nat_single_az ? length(var.private_subnets) : 0
+  count                  = var.create_nat_gateway && var.nat_single_az && var.nat_multi_az == false ? length(var.private_subnets) : 0
   route_table_id         = element(aws_route_table.private.*.id, count.index)
   destination_cidr_block = "0.0.0.0/0"
   nat_gateway_id         = aws_nat_gateway.single_az[0].id
 }
 
 resource "aws_route" "private_multi_az_nat_gateway" {
-  count                  = var.create_nat_gateway && var.nat_multi_az ? length(var.private_subnets) : 0
+  count                  = var.create_nat_gateway && var.nat_multi_az && var.nat_single_az == false ? length(var.private_subnets) : 0
   route_table_id         = element(aws_route_table.private.*.id, count.index)
   destination_cidr_block = "0.0.0.0/0"
   nat_gateway_id         = element(aws_nat_gateway.multi_az[*].id, count.index)
