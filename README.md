@@ -7,10 +7,12 @@ This terraform module creates a VPC, public subnets, private subnets with access
 Examples available [`here`](https://github.com/boldlink/terraform-aws-vpc/tree/main/examples)
 
 ## Usage
+*NOTE*: These examples use the latest version of this module
+ 
 ```hcl
-###################
+##############
 ## Single NAT
-###################
+##############
 
 data "aws_caller_identity" "current" {}
 
@@ -41,7 +43,7 @@ locals {
 }
 
 module "single_nat_vpc" {
-  source                  = "./../.."
+  source                  = "boldlink/vpc/aws"
   name                    = local.name
   account                 = data.aws_caller_identity.current.account_id
   region                  = data.aws_region.current.name

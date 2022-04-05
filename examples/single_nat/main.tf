@@ -31,7 +31,7 @@ locals {
 }
 
 module "single_nat_vpc" {
-  source                  = "./../.."
+  source                  = "boldlink/vpc/aws"
   name                    = local.name
   account                 = data.aws_caller_identity.current.account_id
   region                  = data.aws_region.current.name
