@@ -31,7 +31,7 @@ locals {
 }
 
 module "vpc_with_endpoints" {
-  source                  = "./../.."
+  source                  = "boldlink/vpc/aws"
   name                    = local.name
   account                 = data.aws_caller_identity.current.account_id
   region                  = data.aws_region.current.name
@@ -46,7 +46,7 @@ module "vpc_with_endpoints" {
 }
 
 module "vpc_endpoints" {
-  source = "../../modules/vpc-endpoints"
+  source = "boldlink/vpc/aws//modules/vpc-endpoints"
   vpc_id = module.vpc_with_endpoints.id
   interface_endpoint_service_names = [
     "com.amazonaws.${data.aws_region.current.name}.s3",
