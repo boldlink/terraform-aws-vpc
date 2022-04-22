@@ -25,9 +25,7 @@ resource "aws_vpc" "main" {
   )
 }
 
-###############################
-##VPC flow logs: Provides a VPC/Subnet/ENI Flow Log to capture IP traffic for a specific network interface, subnet, or VPC. Logs are sent ##to a CloudWatch Log Group or a S3 Bucket.
-###############################
+## VPC flow logs: Provides a VPC/Subnet/ENI Flow Log to capture IP traffic for a specific network interface, subnet, or VPC. Logs are sent ## to a CloudWatch Log Group or a S3 Bucket.
 
 resource "aws_flow_log" "main" {
   vpc_id                   = aws_vpc.main.id
@@ -114,6 +112,7 @@ EOF
 ######################
 ##DHCP options Set
 ######################
+
 resource "aws_vpc_dhcp_options" "main" {
   count                = length(var.public_subnets) > 0 ? 1 : 0
   domain_name          = var.dhcp_domain_name
@@ -130,22 +129,22 @@ resource "aws_vpc_dhcp_options" "main" {
   )
 }
 
-/*
-DHCP Options Set Association
-*/
+##########################################
+### DHCP Options Set Association
+##########################################
 
 resource "aws_vpc_dhcp_options_association" "main" {
   count           = length(var.public_subnets) > 0 ? 1 : 0
   vpc_id          = aws_vpc.main.id
-  dhcp_options_id = aws_vpc_dhcp_options.main[0].id
+  dhcp_options_id = join("", aws_vpc_dhcp_options.main.*.id)
 }
 
-/*
-Internet Gateway
-*/
+##########################################
+## Internet Gateway
+##########################################
 
 resource "aws_internet_gateway" "main" {
-  count  = length(var.public_subnets) > 0 ? 1 : 0
+  count  = length(var.public_subnets) > 0 || length(var.eks_public_subnets) > 0 ? 1 : 0
   vpc_id = aws_vpc.main.id
   tags = merge(
     {
@@ -156,12 +155,12 @@ resource "aws_internet_gateway" "main" {
   )
 }
 
-/*
-Publiс routes
-*/
+##########################################
+### Publiс routes
+##########################################
 
 resource "aws_route_table" "public" {
-  count            = length(var.public_subnets) > 0 ? 1 : 0
+  count            = length(var.public_subnets) > 0 || length(var.eks_public_subnets) > 0 ? 1 : 0
   vpc_id           = aws_vpc.main.id
   propagating_vgws = var.propagating_vgws
   tags = merge(
@@ -174,15 +173,15 @@ resource "aws_route_table" "public" {
 }
 
 resource "aws_route" "public_internet_gateway" {
-  count                  = length(var.public_subnets) > 0 ? 1 : 0
-  route_table_id         = aws_route_table.public[0].id
+  count                  = length(var.public_subnets) > 0 || length(var.eks_public_subnets) > 0 ? 1 : 0
+  route_table_id         = join("", aws_route_table.public.*.id)
   destination_cidr_block = "0.0.0.0/0"
-  gateway_id             = aws_internet_gateway.main[0].id
+  gateway_id             = join("", aws_internet_gateway.main.*.id)
 }
 
-/*
-Public Subnets
-*/
+############################
+### Public Subnets
+############################
 
 resource "aws_subnet" "public" {
   count                           = length(var.public_subnets) > 0 ? length(var.public_subnets) : 0
@@ -201,19 +200,15 @@ resource "aws_subnet" "public" {
   )
 }
 
-/*
-Public Route Association
-*/
-
 resource "aws_route_table_association" "public" {
   count          = length(var.public_subnets)
   subnet_id      = element(aws_subnet.public.*.id, count.index)
-  route_table_id = aws_route_table.public[0].id
+  route_table_id = join("", aws_route_table.public.*.id)
 }
 
-/*
-Private routes
-*/
+##########################################
+### Private routes
+##########################################
 
 resource "aws_route_table" "private" {
   count  = length(var.private_subnets) > 0 ? length(var.private_subnets) : 0
@@ -227,9 +222,9 @@ resource "aws_route_table" "private" {
   )
 }
 
-/*
-Private Subnets
-*/
+##########################################
+### Private Subnets
+##########################################
 
 resource "aws_subnet" "private" {
   count             = length(var.private_subnets) > 0 ? length(var.private_subnets) : 0
@@ -303,9 +298,9 @@ resource "aws_route" "private_multi_az_nat_gateway" {
   nat_gateway_id         = element(aws_nat_gateway.multi_az[*].id, count.index)
 }
 
-/*
-Private Route Association
-*/
+##########################################
+### Private Route Association
+##########################################
 
 resource "aws_route_table_association" "private" {
   count          = length(var.private_subnets) > 0 ? length(var.private_subnets) : 0
@@ -313,10 +308,9 @@ resource "aws_route_table_association" "private" {
   route_table_id = element(aws_route_table.private.*.id, count.index)
 }
 
-
-###################
-###Isolated routes
-###################
+###########################
+###Isolated Network
+###########################
 
 resource "aws_route_table" "isolated" {
   count  = length(var.isolated_subnets) > 0 ? length(var.isolated_subnets) : 0
@@ -330,9 +324,9 @@ resource "aws_route_table" "isolated" {
   )
 }
 
-###########################################################################
-# Isolated Subnets: These are private subnets without access to the internet
-###########################################################################
+################################################################################
+### Isolated Subnets: These are private subnets without access to the internet
+################################################################################
 
 resource "aws_subnet" "isolated" {
   count             = length(var.isolated_subnets) > 0 ? length(var.isolated_subnets) : 0
@@ -348,9 +342,9 @@ resource "aws_subnet" "isolated" {
   )
 }
 
-/*
-Isolated Route Association
-*/
+##########################################
+### Isolated Route Association
+##########################################
 
 resource "aws_route_table_association" "isolated" {
   count          = length(var.isolated_subnets) > 0 ? length(var.isolated_subnets) : 0
@@ -362,9 +356,9 @@ resource "aws_route_table_association" "isolated" {
 # EKS networks
 ###############
 
-/*
-Eks Public Subnets
-*/
+##########################################
+### Eks Subnets
+##########################################
 
 resource "aws_subnet" "eks_public" {
   count                   = length(var.eks_public_subnets) > 0 ? length(var.eks_public_subnets) : 0
@@ -383,19 +377,11 @@ resource "aws_subnet" "eks_public" {
   )
 }
 
-/*
-Eks Public Route Association
-*/
-
 resource "aws_route_table_association" "eks_public" {
   count          = length(var.eks_public_subnets)
   subnet_id      = element(aws_subnet.eks_public.*.id, count.index)
-  route_table_id = aws_route_table.public[0].id
+  route_table_id = join("", aws_route_table.public.*.id)
 }
-
-/*
-EKS Subnets
-*/
 
 resource "aws_subnet" "eks_private" {
   count             = length(var.eks_private_subnets) > 0 ? length(var.eks_private_subnets) : 0
@@ -419,14 +405,9 @@ resource "aws_route_table_association" "eks_private" {
   route_table_id = element(aws_route_table.private.*.id, count.index)
 }
 
-/*
-Database network
-*/
-
-/*
-Database routes
-*/
-
+##########################################
+### Database network
+##########################################
 resource "aws_route_table" "database" {
   count  = length(var.database_subnets) > 0 ? length(var.database_subnets) : 0
   vpc_id = aws_vpc.main.id
@@ -439,9 +420,9 @@ resource "aws_route_table" "database" {
   )
 }
 
-/*
-Database Subnets
-*/
+############################
+### Database Subnets
+############################
 
 resource "aws_subnet" "database" {
   count             = length(var.database_subnets) > 0 ? length(var.database_subnets) : 0
@@ -456,10 +437,6 @@ resource "aws_subnet" "database" {
     var.other_tags,
   )
 }
-
-/*
-Database Route Association
-*/
 
 resource "aws_route_table_association" "database" {
   count          = length(var.database_subnets)
