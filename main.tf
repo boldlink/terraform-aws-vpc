@@ -161,7 +161,7 @@ Publiс routes
 */
 
 resource "aws_route_table" "public" {
-  count            = length(var.public_subnets) > 0 ? 1 : 0
+  count            = length(var.public_subnets) > 0 || length(var.eks_public_subnets) > 0 ? 1 : 0
   vpc_id           = aws_vpc.main.id
   propagating_vgws = var.propagating_vgws
   tags = merge(
