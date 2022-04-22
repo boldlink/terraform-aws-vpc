@@ -25,7 +25,6 @@ resource "aws_vpc" "main" {
   )
 }
 
-
 ## VPC flow logs: Provides a VPC/Subnet/ENI Flow Log to capture IP traffic for a specific network interface, subnet, or VPC. Logs are sent ## to a CloudWatch Log Group or a S3 Bucket.
 
 resource "aws_flow_log" "main" {
