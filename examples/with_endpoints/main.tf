@@ -1,6 +1,6 @@
-##############
-## Single NAT
-##############
+#####################
+## VPC With Endpoint
+#####################
 
 data "aws_caller_identity" "current" {}
 
@@ -30,7 +30,7 @@ locals {
   azs = [local.az1, local.az2, local.az3]
 }
 
-module "single_nat_vpc" {
+module "vpc_with_endpoints" {
   source                  = "boldlink/vpc/aws"
   name                    = local.name
   account                 = data.aws_caller_identity.current.account_id
@@ -43,12 +43,25 @@ module "single_nat_vpc" {
   private_subnets         = local.private_subnets
   availability_zones      = local.azs
   map_public_ip_on_launch = true
-  create_nat_gateway      = true
-  nat_single_az           = true
+}
+
+module "vpc_endpoints" {
+  source = "boldlink/vpc/aws//modules/vpc-endpoints"
+  vpc_id = module.vpc_with_endpoints.id
+  interface_endpoint_service_names = [
+    "com.amazonaws.${data.aws_region.current.name}.s3",
+    "com.amazonaws.${data.aws_region.current.name}.ec2"
+  ]
+  interface_endpoint_auto_accept = true
+  interface_endpoint_subnet_ids = flatten([
+    module.vpc_with_endpoints.private_subnet_id,
+    module.vpc_with_endpoints.isolated_subnet_id,
+    module.vpc_with_endpoints.database_subnet_id
+  ])
 }
 
 output "outputs" {
   value = [
-    module.single_nat_vpc,
+    module.vpc_with_endpoints,
   ]
 }

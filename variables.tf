@@ -186,15 +186,9 @@ variable "private_subnets" {
   default     = []
 }
 
-variable "isolated_subnets" {
+variable "internal_subnets" {
   type        = list(string)
-  description = "The CIDR blocks of the Private Isolated subnets, that is, subnets without internet access."
-  default     = []
-}
-
-variable "database_subnets" {
-  type        = list(string)
-  description = "The CIDR blocks of the database subnets"
+  description = "The CIDR blocks of the Private internal subnets, that is, subnets without internet access."
   default     = []
 }
 
@@ -234,18 +228,6 @@ variable "nat_multi_az" {
   default     = false
 }
 
-variable "create_database_subnet_group" {
-  type        = bool
-  description = "Choose whether to create database subnet group."
-  default     = false
-}
-
-variable "create_docdb_subnet_group" {
-  type        = bool
-  description = "Choose whether to create DocumentDB Subnet Group."
-  default     = false
-}
-
 variable "nat_single_az" {
   type        = bool
   description = "Choose whether to use only one NAT for all private subnets"
@@ -267,7 +249,7 @@ variable "tag_env" {
 variable "name" {
   type        = string
   description = "Input the name of stack"
-  default     = null
+  default     = ""
 }
 
 variable "account" {
@@ -278,12 +260,6 @@ variable "account" {
 variable "region" {
   type        = string
   description = "(Required) Enter region where you are deploying resources"
-}
-
-variable "other_tags" {
-  type        = map(string)
-  description = "A map of addition tags to apply to the resources created"
-  default     = {}
 }
 
 variable "cluster_name" {
