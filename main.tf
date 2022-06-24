@@ -164,24 +164,11 @@ resource "aws_vpc_dhcp_options" "main" {
   )
 }
 
+
 /*
 VPC DHCP Options Set Association
 */
 resource "aws_vpc_dhcp_options_association" "main" {
   vpc_id          = aws_vpc.main.id
   dhcp_options_id = aws_vpc_dhcp_options.main.id
-}
-
-/*
-Internet Gateway
-*/
-resource "aws_internet_gateway" "main" {
-  count  = length(var.public_subnets) > 0 ? 1 : 0
-  vpc_id = aws_vpc.main.id
-  tags = merge(
-    {
-      "Name" = var.name
-    },
-    var.tags,
-  )
 }
