@@ -17,8 +17,8 @@ be added until you run out of address spaces with in the 3 types.
 This module also supports VPC private subnets with a `single` Nat Gateway (ex. dev or single AZ ) or `multi` Nat Gateway (ex. prod with HA).
 
 ### LIMITATIONS and KNOWN ISSUES:
-Current release `3.0.0` has a deployment dependency, you must first create the VPC with the Nat Gateway `var.nat = "single/multi"` and 
-`var.enable_public_subnets = true` first and then you can set `var.enable_private_subnets = true` and re-deploy which will trigger the 
+Current release `3.0.0` has a deployment dependency, you must first create the VPC with the Nat Gateway `var.nat = "single/multi"` and
+`var.enable_public_subnets = true` first and then you can set `var.enable_private_subnets = true` and re-deploy which will trigger the
 creation of the private subnets.
 
 Also with release `3.0.0` VPC Endpoints supoprt has been removed and will be added in subsquent releases.
@@ -76,7 +76,7 @@ module "minimum_vpc" {
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.19.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.20.0 |
 
 ## Modules
 

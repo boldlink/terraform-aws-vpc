@@ -30,6 +30,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - feat: Add addtional security to s3 bucket for logging.
 - feat: Create modules for the 3 types of subnets you can have in your VPC, public, private or internal/isolated
 - feat: You use one variable to define the nr of nat gateways - var.nat with either `single` or `multi`
+- feat: Add pre-commit and addtional support files
+- feat: Add checkov.yml config file for skipping CKV2_AWS_12
 
 
 
