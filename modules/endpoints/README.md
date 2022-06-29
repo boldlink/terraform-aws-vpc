@@ -1,15 +1,22 @@
+[![Build Status](https://github.com/boldlink/terraform-aws-vpc/actions/workflows/pre-commit.yml/badge.svg)](https://github.com/boldlink/terraform-aws-vpc/actions)
+
+[<img src="https://avatars.githubusercontent.com/u/25388280?s=200&v=4" width="96"/>](https://boldlink.io)
+
 # vpc-endpoints
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
-No requirements.
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.14.11 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.8.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.20.1 |
 
 ## Modules
 
@@ -19,12 +26,14 @@ No modules.
 
 | Name | Type |
 |------|------|
+| [aws_security_group.allow_443](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
 | [aws_vpc_endpoint.gateway](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_endpoint) | resource |
 | [aws_vpc_endpoint.gatewayloadbalancer](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_endpoint) | resource |
 | [aws_vpc_endpoint.interface](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_endpoint) | resource |
 | [aws_vpc_endpoint_connection_notification.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_endpoint_connection_notification) | resource |
 | [aws_vpc_endpoint_service.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_endpoint_service) | resource |
 | [aws_vpc_endpoint_service_allowed_principal.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_endpoint_service_allowed_principal) | resource |
+| [aws_vpc.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/vpc) | data source |
 
 ## Inputs
 
@@ -61,12 +70,11 @@ No modules.
 | <a name="input_interface_endpoint_policy"></a> [interface\_endpoint\_policy](#input\_interface\_endpoint\_policy) | (Optional) A policy to attach to the endpoint that controls access to the service. This is a JSON formatted string. Defaults to full access. All `Gateway` and some `Interface` endpoints support policies | `string` | `null` | no |
 | <a name="input_interface_endpoint_private_dns_enabled"></a> [interface\_endpoint\_private\_dns\_enabled](#input\_interface\_endpoint\_private\_dns\_enabled) | (Optional; AWS services and AWS Marketplace partner services only) Whether or not to associate a private hosted zone with the specified VPC. Applicable for endpoints of type `Interface`. Defaults to `false`. | `bool` | `false` | no |
 | <a name="input_interface_endpoint_route_table_ids"></a> [interface\_endpoint\_route\_table\_ids](#input\_interface\_endpoint\_route\_table\_ids) | (Optional) One or more route table IDs. Applicable for endpoints of type `Gateway`. | `list(string)` | `[]` | no |
-| <a name="input_interface_endpoint_security_group_ids"></a> [interface\_endpoint\_security\_group\_ids](#input\_interface\_endpoint\_security\_group\_ids) | (Optional) The ID of one or more security groups to associate with the network interface. Required for endpoints of type `Interface`. | `list(string)` | `[]` | no |
 | <a name="input_interface_endpoint_service_names"></a> [interface\_endpoint\_service\_names](#input\_interface\_endpoint\_service\_names) | (Required) The service names. For AWS services the service name is usually in the form `com.amazonaws.<region>.<service>` (the SageMaker Notebook service is an exception to this rule, the service name is in the form `aws.sagemaker.<region>.notebook`). | `list(string)` | `[]` | no |
 | <a name="input_interface_endpoint_subnet_ids"></a> [interface\_endpoint\_subnet\_ids](#input\_interface\_endpoint\_subnet\_ids) | (Optional) The ID of one or more subnets in which to create a network interface for the endpoint. Applicable for endpoints of type `GatewayLoadBalancer` and `Interface`. | `list(string)` | `[]` | no |
 | <a name="input_interface_endpoint_tags"></a> [interface\_endpoint\_tags](#input\_interface\_endpoint\_tags) | A map of tags to assign to the resource. If configured with a provider [`default_tags` configuration block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/docs#default_tags-configuration-block) present, tags with matching keys will overwrite those defined at the provider-level. | `map(string)` | `{}` | no |
 | <a name="input_interface_endpoint_timeouts"></a> [interface\_endpoint\_timeouts](#input\_interface\_endpoint\_timeouts) | Configuration block specifying how long to wait when creating, updating and deleting VPC endpoints. | `map(string)` | `{}` | no |
-| <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | (Required) The ID of the VPC in which the endpoint will be used. | `string` | n/a | yes |
+| <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | (Required) The ID of the VPC in which the endpoint will be used. | `string` | `null` | no |
 
 ## Outputs
 
@@ -116,3 +124,18 @@ No modules.
 | <a name="output_vpc_endpoint_connection_notification_notification_type"></a> [vpc\_endpoint\_connection\_notification\_notification\_type](#output\_vpc\_endpoint\_connection\_notification\_notification\_type) | The type of notification. |
 | <a name="output_vpc_endpoint_connection_notification_state"></a> [vpc\_endpoint\_connection\_notification\_state](#output\_vpc\_endpoint\_connection\_notification\_state) | The state of the notification. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+
+## Third party software
+This repository uses third party software:
+* [pre-commit](https://pre-commit.com/) - Used to help ensure code and documentation consistency
+  * Install with `brew install pre-commit`
+  * Manually use with `pre-commit run`
+* [terraform 0.14.11](https://releases.hashicorp.com/terraform/0.14.11/) For backwards compability we are using version 0.14.11 for testing making this the min version tested and without issues with terraform-docs.
+* [terraform-docs](https://github.com/segmentio/terraform-docs) - Used to generate the [Inputs](#Inputs) and [Outputs](#Outputs) sections
+  * Install with `brew install terraform-docs`
+  * Manually use via pre-commit
+* [tflint](https://github.com/terraform-linters/tflint) - Used to lint the Terraform code
+  * Install with `brew install tflint`
+  * Manually use via pre-commit
+
+#### BOLDLink-SIG 2022

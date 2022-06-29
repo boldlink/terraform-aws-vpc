@@ -1,15 +1,22 @@
+[![Build Status](https://github.com/boldlink/terraform-aws-vpc/actions/workflows/pre-commit.yml/badge.svg)](https://github.com/boldlink/terraform-aws-vpc/actions)
+
+[<img src="https://avatars.githubusercontent.com/u/25388280?s=200&v=4" width="96"/>](https://boldlink.io)
+
 # vpc-ipam
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
-No requirements.
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.14.11 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.8.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.20.1 |
 
 ## Modules
 
@@ -50,9 +57,6 @@ No modules.
 | <a name="input_locale"></a> [locale](#input\_locale) | (Optional) The locale in which you would like to create the IPAM pool. Locale is the Region where you want to make an IPAM pool available for allocations. You can only create pools with locales that match the operating Regions of the IPAM. You can only create VPCs from a pool whose locale matches the VPC's Region. Possible values: Any AWS region, such as `eu-west-1`. | `string` | `null` | no |
 | <a name="input_operating_regions"></a> [operating\_regions](#input\_operating\_regions) | (Required) Determines which locales can be chosen when you create pools. Locale is the Region where you want to make an IPAM pool available for allocations. You can only create pools with locales that match the operating Regions of the IPAM. You can only create VPCs from a pool whose locale matches the VPC's Region. You specify a region using the [`region_name`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_ipam#operating_regions) parameter. You must set your provider block region as an operating\_region. | `map(string)` | n/a | yes |
 | <a name="input_pool_allocation_cidr"></a> [pool\_allocation\_cidr](#input\_pool\_allocation\_cidr) | (Optional) The CIDR you want to assign to the pool. | `string` | `null` | no |
-| <a name="input_pool_allocation_description"></a> [pool\_allocation\_description](#input\_pool\_allocation\_description) | (Optional) The description for the allocation. | `string` | `null` | no |
-| <a name="input_pool_allocation_disallowed_cidrs"></a> [pool\_allocation\_disallowed\_cidrs](#input\_pool\_allocation\_disallowed\_cidrs) | (Optional) Exclude a particular CIDR range from being returned by the pool. | `list(string)` | `[]` | no |
-| <a name="input_pool_allocation_netmask_length"></a> [pool\_allocation\_netmask\_length](#input\_pool\_allocation\_netmask\_length) | (Optional) The netmask length of the CIDR you would like to allocate to the IPAM pool. Valid Values: `0-32`. | `number` | `0` | no |
 | <a name="input_publicly_advertisable"></a> [publicly\_advertisable](#input\_publicly\_advertisable) | (Optional) Defines whether or not IPv6 pool space is publicly advertisable over the internet. This option is not available for IPv4 pool space. | `bool` | `false` | no |
 | <a name="input_source_ipam_pool_id"></a> [source\_ipam\_pool\_id](#input\_source\_ipam\_pool\_id) | (Optional) The ID of the source IPAM pool. Use this argument to create a child pool within an existing pool. | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | (Optional) A map of tags to assign to the resource. If configured with a provider [`default_tags` configuration block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/docs#default_tags-configuration-block) present, tags with matching keys will overwrite those defined at the provider-level. | `map(string)` | `{}` | no |
@@ -88,3 +92,18 @@ No modules.
 | <a name="output_scope_count"></a> [scope\_count](#output\_scope\_count) | The number of scopes in the IPAM. |
 | <a name="output_tags_all"></a> [tags\_all](#output\_tags\_all) | A map of tags assigned to the resource, including those inherited from the provider [`default_tags` configuration block](https://registry.terraform.io/docs/providers/aws/index#default_tags-configuration-block). |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+
+## Third party software
+This repository uses third party software:
+* [pre-commit](https://pre-commit.com/) - Used to help ensure code and documentation consistency
+  * Install with `brew install pre-commit`
+  * Manually use with `pre-commit run`
+* [terraform 0.14.11](https://releases.hashicorp.com/terraform/0.14.11/) For backwards compability we are using version 0.14.11 for testing making this the min version tested and without issues with terraform-docs.
+* [terraform-docs](https://github.com/segmentio/terraform-docs) - Used to generate the [Inputs](#Inputs) and [Outputs](#Outputs) sections
+  * Install with `brew install terraform-docs`
+  * Manually use via pre-commit
+* [tflint](https://github.com/terraform-linters/tflint) - Used to lint the Terraform code
+  * Install with `brew install tflint`
+  * Manually use via pre-commit
+
+#### BOLDLink-SIG 2022

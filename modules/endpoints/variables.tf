@@ -1,6 +1,7 @@
 variable "vpc_id" {
   type        = string
   description = "(Required) The ID of the VPC in which the endpoint will be used."
+  default     = null
 }
 
 #############################################
@@ -40,12 +41,6 @@ variable "interface_endpoint_route_table_ids" {
 variable "interface_endpoint_subnet_ids" {
   type        = list(string)
   description = "(Optional) The ID of one or more subnets in which to create a network interface for the endpoint. Applicable for endpoints of type `GatewayLoadBalancer` and `Interface`."
-  default     = []
-}
-
-variable "interface_endpoint_security_group_ids" {
-  type        = list(string)
-  description = "(Optional) The ID of one or more security groups to associate with the network interface. Required for endpoints of type `Interface`."
   default     = []
 }
 
@@ -242,3 +237,18 @@ variable "create_gatewayloadbalancer_endpoint" {
   description = "Choose whether to create gatewayloadbalancer endpoint"
   default     = false
 }
+
+#########################################
+## Endpoint security groups variables
+#########################################
+# variable "ipv6_cidr_block" {
+#   type        = string
+#   description = "(Optional) IPv6 CIDR block to request from an IPAM Pool. Can be set explicitly or derived from IPAM using `ipv6_netmask_length`."
+#   default     = null
+# }
+
+# variable "cidr_block" {
+#   type        = string
+#   description = "(Optional) The IPv4 CIDR block for the VPC. CIDR can be explicitly set or it can be derived from IPAM using `ipv4_netmask_length`."
+#   default     = null
+# }

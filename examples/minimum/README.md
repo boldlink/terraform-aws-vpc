@@ -2,7 +2,8 @@
 
 [<img src="https://avatars.githubusercontent.com/u/25388280?s=200&v=4" width="96"/>](https://boldlink.io)
 
-# single_nat
+# Terraform  module example of complete and most common configuration
+
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
@@ -20,7 +21,7 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_single_nat_vpc"></a> [single\_nat\_vpc](#module\_single\_nat\_vpc) | ./../../ | n/a |
+| <a name="module_minimum_vpc"></a> [minimum\_vpc](#module\_minimum\_vpc) | ./../../ | n/a |
 
 ## Resources
 

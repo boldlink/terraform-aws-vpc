@@ -127,23 +127,23 @@ variable "pool_allocation_cidr" {
   default     = null
 }
 
-variable "pool_allocation_description" {
-  type        = string
-  description = "(Optional) The description for the allocation."
-  default     = null
-}
+# variable "pool_allocation_description" {
+#   type        = string
+#   description = "(Optional) The description for the allocation."
+#   default     = null
+# }
 
-variable "pool_allocation_disallowed_cidrs" {
-  type        = list(string)
-  description = "(Optional) Exclude a particular CIDR range from being returned by the pool."
-  default     = []
-}
+# variable "pool_allocation_disallowed_cidrs" {
+#   type        = list(string)
+#   description = "(Optional) Exclude a particular CIDR range from being returned by the pool."
+#   default     = []
+# }
 
-variable "pool_allocation_netmask_length" {
-  type        = number
-  description = "(Optional) The netmask length of the CIDR you would like to allocate to the IPAM pool. Valid Values: `0-32`."
-  default     = 0
-}
+# variable "pool_allocation_netmask_length" {
+#   type        = number
+#   description = "(Optional) The netmask length of the CIDR you would like to allocate to the IPAM pool. Valid Values: `0-32`."
+#   default     = 0
+# }
 
 ##########################################
 ## aws vpc ipam preview next cidr

@@ -2,12 +2,12 @@
 VPC
 */
 
-output "arn" {
+output "vpc_arn" {
   value       = aws_vpc.main.arn
   description = "Amazon Resource Name (ARN) of VPC"
 }
 
-output "id" {
+output "vpc_id" {
   value       = aws_vpc.main.id
   description = "The ID of the VPC"
 }
@@ -89,38 +89,4 @@ output "flow_logs_arn" {
 output "flow_logs_tags_all" {
   value       = aws_flow_log.main.tags_all
   description = "A map of tags assigned to the resource, including those inherited from the provider [default_tags configuration block](https://registry.terraform.io/docs/providers/aws/index#default_tags-configuration-block)."
-}
-
-/*
-subnets, route tables
-*/
-
-output "public_subnet_id" {
-  value       = [aws_subnet.public.*.id]
-  description = "The IDs of the public subnets"
-}
-
-output "private_subnet_id" {
-  value       = [aws_subnet.private.*.id]
-  description = "The IDs of the private subnets"
-}
-
-output "isolated_subnet_id" {
-  value       = [aws_subnet.isolated.*.id]
-  description = "The IDs of the isolated private subnets"
-}
-
-output "database_subnet_id" {
-  value       = [aws_subnet.database.*.id]
-  description = "The IDs of the database subnets"
-}
-
-output "public_eks_subnet_id" {
-  value       = [aws_subnet.eks_public.*.id]
-  description = "The IDs of the public eks subnets"
-}
-
-output "private_eks_subnet_id" {
-  value       = [aws_subnet.eks_private.*.id]
-  description = "The IDs of the private eks subnets"
 }
