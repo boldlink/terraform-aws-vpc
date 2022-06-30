@@ -96,6 +96,24 @@ variable "flow_log_eni_id" {
   default     = null
 }
 
+variable "log_group_name" {
+  description = "Use this variable to override the default log group name `/aws/vpc/name`"
+  type        = string
+  default     = null
+}
+
+variable "retention_in_days" {
+  description = "(Optional) Specifies the number of days you want to retain log events in the specified log group. Possible values are: 1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1827, 3653, and 0. If you select 0, the events in the log group are always retained and never expire"
+  type        = number
+  default     = 0
+}
+
+variable "logs_kms_key_id" {
+  description = "(Optional) The ARN of the KMS Key to use when encrypting log data."
+  type        = string
+  default     = null
+}
+
 variable "log_destination_type" {
   type        = string
   description = "(Optional) The type of the logging destination. Valid values: `cloud-watch-logs`, `s3`. Default: `cloud-watch-logs`."
@@ -161,135 +179,48 @@ variable "netbios_node_type" {
 }
 
 /*
-Publiс routes
-*/
-
-variable "propagating_vgws" {
-  type        = list(string)
-  description = "(Optional) A list of virtual gateways for propagation."
-  default     = []
-}
-
-/*
 Subnets & Other resources
 */
 
+variable "enable_public_subnets" {
+  description = "Activate public subnets module"
+  type        = bool
+  default     = false
+}
 variable "public_subnets" {
-  type        = list(string)
-  description = "The CIDR blocks of the public subnets"
-  default     = []
+  type        = any
+  description = "Public subnets settings map"
+  default     = {}
+}
+
+variable "enable_private_subnets" {
+  description = "Activate private subnets module"
+  type        = bool
+  default     = false
 }
 
 variable "private_subnets" {
-  type        = list(string)
-  description = "The CIDR blocks of the Private subnets"
-  default     = []
+  type        = any
+  description = "Private subnets settings map"
+  default     = {}
 }
 
-variable "isolated_subnets" {
-  type        = list(string)
-  description = "The CIDR blocks of the Private Isolated subnets, that is, subnets without internet access."
-  default     = []
-}
-
-variable "database_subnets" {
-  type        = list(string)
-  description = "The CIDR blocks of the database subnets"
-  default     = []
-}
-
-variable "eks_public_subnets" {
-  type        = list(string)
-  description = "The CIDR blocks of the Public EKS subnets"
-  default     = []
-}
-
-variable "eks_private_subnets" {
-  type        = list(string)
-  description = "The CIDR blocks of the Private EKS subnets"
-  default     = []
-}
-
-variable "availability_zones" {
-  type        = list(string)
-  description = "List of AZs of the subnets"
-  default     = []
-}
-
-variable "map_public_ip_on_launch" {
+variable "enable_internal_subnets" {
+  description = "Activate internal subnets module"
   type        = bool
-  description = "(Optional) Specify true to indicate that instances launched into the subnet should be assigned a public IP address. Default is `false`."
   default     = false
 }
 
-variable "assign_ipv6_address_on_creation" {
-  type        = bool
-  description = "(Optional) Specify true to indicate that network interfaces created in the specified subnet should be assigned an IPv6 address. Default is `false`."
-  default     = false
-}
-
-variable "nat_multi_az" {
-  type        = bool
-  description = "Choose whether to have one NAT per AZ"
-  default     = false
-}
-
-variable "create_database_subnet_group" {
-  type        = bool
-  description = "Choose whether to create database subnet group."
-  default     = false
-}
-
-variable "create_docdb_subnet_group" {
-  type        = bool
-  description = "Choose whether to create DocumentDB Subnet Group."
-  default     = false
-}
-
-variable "nat_single_az" {
-  type        = bool
-  description = "Choose whether to use only one NAT for all private subnets"
-  default     = false
-}
-
-variable "create_nat_gateway" {
-  type        = bool
-  description = "Specify whether you want to create NAT Gateway(s) or not"
-  default     = false
-}
-
-variable "tag_env" {
-  type        = string
-  description = "Enter the name of the environment used by the resources"
-  default     = null
+variable "internal_subnets" {
+  type        = any
+  description = "Internal subnets settings map"
+  default     = {}
 }
 
 variable "name" {
   type        = string
   description = "Input the name of stack"
-  default     = null
-}
-
-variable "account" {
-  type        = string
-  description = "(Required) Account ID to use to create resources"
-}
-
-variable "region" {
-  type        = string
-  description = "(Required) Enter region where you are deploying resources"
-}
-
-variable "other_tags" {
-  type        = map(string)
-  description = "A map of addition tags to apply to the resources created"
-  default     = {}
-}
-
-variable "cluster_name" {
-  type        = string
-  description = "Input name of EKS Cluster. Provide this when creating EKS subnets"
-  default     = "none"
+  default     = ""
 }
 
 variable "tags" {
@@ -297,3 +228,33 @@ variable "tags" {
   description = "(Optional) A map of tags to assign to the resource. If configured with a provider [`default_tags` configuration block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/docs#default_tags-configuration-block) present, tags with matching keys will overwrite those defined at the provider-level."
   default     = {}
 }
+
+# variable "logs_bucket_name" {
+#   description = "The name of the s3 bucket to store the logs, use this variable of you want to override the default name `name-vpc-logs-region-account_id`"
+#   type        = string
+#   default     = null
+# }
+
+variable "vpc_assume_policy" {
+  description = "Override the default vpc flow log group assume role policy"
+  type        = string
+  default     = null
+}
+
+variable "vpc_role_policy" {
+  description = "Override the default vpc flow log group role policy"
+  type        = string
+  default     = null
+}
+
+# variable "vpc_s3_role_policy" {
+#   description = "Override the default vpc flow log s3 policy"
+#   type        = string
+#   default     = null
+# }
+
+# variable "vpc_s3_bucket_policy" {
+#   description = "Override the default vpc flow log s3 bucket policy"
+#   type        = string
+#   default     = null
+# }

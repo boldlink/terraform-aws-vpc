@@ -5,6 +5,7 @@
 *.tfstate
 *.tfstate.*
 
+
 # Crash log files
 crash.log
 
@@ -20,6 +21,8 @@ override.tf
 override.tf.json
 *_override.tf
 *_override.tf.json
+.terraform.lock.hcl
+
 
 # Include override files you do wish to add to version control using negated pattern
 #
@@ -27,3 +30,14 @@ override.tf.json
 
 # Include tfplan files to ignore the plan output of command: terraform plan -out=tfplan
 # example: *tfplan*
+
+# other exclusions
+*.bin
+*.tmp
+*.pem
+*.pub
+.DS_Store
+.idea/
+*.swp
+.gitleaks.toml
+*vscode*
