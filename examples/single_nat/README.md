@@ -1,5 +1,5 @@
-[![Build Status](https://github.com/boldlink/terraform-aws-vpc/actions/workflows/pre-commit.yml/badge.svg)](https://github.com/boldlink/terraform-aws-vpc/actions)
-[![Build Status](https://github.com/boldlink/terraform-aws-vpc/actions/workflows/checkov.yml/badge.svg)](https://github.com/boldlink/terraform-aws-vpc/actions)
+[![Build Status](https://github.com/boldlink/terraform-aws-vpc/actions/workflows/pre-commit.yaml/badge.svg)](https://github.com/boldlink/terraform-aws-vpc/actions)
+[![Build Status](https://github.com/boldlink/terraform-aws-vpc/actions/workflows/checkov.yaml/badge.svg)](https://github.com/boldlink/terraform-aws-vpc/actions)
 
 [<img src="https://avatars.githubusercontent.com/u/25388280?s=200&v=4" width="96"/>](https://boldlink.io)
 
