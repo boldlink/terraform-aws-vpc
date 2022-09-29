@@ -1,6 +1,6 @@
-/*
-VPC
-*/
+#####################
+## VPC
+#####################
 
 variable "cidr_block" {
   type        = string
@@ -62,12 +62,6 @@ variable "enable_dns_hostnames" {
   default     = false
 }
 
-variable "enable_classiclink" {
-  type        = bool
-  description = "(Optional) A boolean flag to enable/disable ClassicLink for the VPC. Only valid in regions and accounts that support EC2 Classic. See the [ClassicLink documentation](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/vpc-classiclink.html) for more information. Defaults false."
-  default     = false
-}
-
 variable "enable_classiclink_dns_support" {
   type        = bool
   description = "(Optional) A boolean flag to enable/disable ClassicLink DNS Support for the VPC. Only valid in regions and accounts that support EC2 Classic."
@@ -80,9 +74,9 @@ variable "assign_generated_ipv6_cidr_block" {
   default     = false
 }
 
-/*
-VPC flow logs
-*/
+#####################
+## VPC flow logs
+#####################
 
 variable "traffic_type" {
   type        = string
@@ -144,9 +138,9 @@ variable "destination_options" {
   default     = {}
 }
 
-/*
-DHCP options Set
-*/
+#####################
+## DHCP options Set
+#####################
 
 variable "dhcp_domain_name" {
   type        = string
@@ -178,9 +172,9 @@ variable "netbios_node_type" {
   default     = 2
 }
 
-/*
-Subnets & Other resources
-*/
+##########################################
+## Subnets & Other resources
+##########################################
 
 variable "enable_public_subnets" {
   description = "Activate public subnets module"

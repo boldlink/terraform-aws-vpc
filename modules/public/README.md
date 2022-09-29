@@ -1,4 +1,5 @@
 [![Build Status](https://github.com/boldlink/terraform-aws-vpc/actions/workflows/pre-commit.yml/badge.svg)](https://github.com/boldlink/terraform-aws-vpc/actions)
+[![Build Status](https://github.com/boldlink/terraform-aws-vpc/actions/workflows/checkov.yml/badge.svg)](https://github.com/boldlink/terraform-aws-vpc/actions)
 
 [<img src="https://avatars.githubusercontent.com/u/25388280?s=200&v=4" width="96"/>](https://boldlink.io)
 
@@ -23,13 +24,13 @@ This module creates public subnets.
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.14.11 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.25.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.20.1 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.32.0 |
 
 ## Modules
 

@@ -1,2 +1,0 @@
-skip-check:
-- CKV2_AWS_12 # "Ensure the default security group of every VPC restricts all traffic"
