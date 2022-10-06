@@ -1,6 +1,6 @@
-/*
-VPC
-*/
+#####################
+## VPC
+#####################
 
 output "vpc_arn" {
   value       = aws_vpc.main.arn
@@ -72,9 +72,9 @@ output "tags_all" {
   description = "A map of tags assigned to the resource, including those inherited from the provider [`default_tags` configuration block](https://registry.terraform.io/docs/providers/aws/index#default_tags-configuration-block)."
 }
 
-/*
-VPC flow logs
-*/
+#####################
+## VPC flow logs
+#####################
 
 output "flow_logs_id" {
   value       = aws_flow_log.main.id

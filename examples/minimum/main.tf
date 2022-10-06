@@ -14,7 +14,7 @@ module "minimum_vpc" {
     }
   }
   tags = {
-    environment        = "examples"
+    Environment        = "examples"
     "user::CostCenter" = "terraform-registry"
   }
 }

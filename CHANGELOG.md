@@ -8,20 +8,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - fix: Private subnets must be created after the public subnets which requires two deployments right now :/. this requires that you deploy a vpc with private subnets in two stages so you can deploy multiple subnet groups using `var.enable_private_subnets` which are by default set to `false` has must both be set to `true` to create the private subnets, example of the output you get when there are no nat_gateways.
 - bug: When switching between `single` and `multi` NatGw's configuration the private subnets routes don't get immediately updated requiring to re-rerun stack after the creation of the new NatGw(s) to properly update the routes - this will cause downtime to any private networks devices.
 - fix: Don't create the iam role when `log_destination_type == "s3"
-- fix: CKV2_AWS_12: "Ensure the default security group of every VPC restricts all traffic"
 - feat: Improve the documentation and examples for the subnets submodules (public; private; internal)
 - feat: Improve the documentation and examples for the endpoints sub module
 - feat: Improve the documentation and examples for the vpc-ipam sub module
 - feat: Add the option to set as default VPC
 - feat: Re-enable vpc logs export to s3
 - feat: Add KMS support for s3 and logs group
-- feat support for public or private Nat Gateways
+- feat: support for public or private Nat Gateways
 - feat: Public Subnets module - use one resource block for both the single and multi-nat gateways if possible
 - feat: Private Subnets module - Use a single route resource for both single and multi gateways option
 - feat: Allow to attach an existing eip to the nat gateway(s)
 - feat: Remove the data source for the nat gw discovery and make it an option on the private module to remove dependencies
 - feat: Test and add to complete example ipv6 support
 - feat: Enable VPC endpoints and add examples
+
+## [3.0.1] - 2022-09-29
+### Description
+- fix: Remove depricated `enable_classiclink`
+- fix: CKV2_AWS_12: "Ensure the default security group of every VPC restricts all traffic"
+- feat: update github action workflow
+- feat: update gitignore
+- feat: Add `SECURITY.md`
+- feat: update Makefile
 
 ## [3.0.0] - 2022-06-24
 ### Description
@@ -54,7 +62,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Stand alone VPC created only with default security
 
 
-[Unreleased]: https://github.com/boldlink/terraform-aws-vpc/compare/3.0.0...HEAD
+[Unreleased]: https://github.com/boldlink/terraform-aws-vpc/compare/3.0.1...HEAD
+
+[3.0.1]: https://github.com/boldlink/terraform-aws-vpc/releases/tag/3.0.1
 [3.0.0]: https://github.com/boldlink/terraform-aws-vpc/releases/tag/3.0.0
 [2.0.3]: https://github.com/boldlink/terraform-aws-vpc/releases/tag/2.0.3
 [2.0.2]: https://github.com/boldlink/terraform-aws-vpc/releases/tag/2.0.2

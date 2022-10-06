@@ -55,7 +55,7 @@ module "complete_vpc" {
     }
   }
   tags = {
-    environment        = "examples"
+    Environment        = "examples"
     "user::CostCenter" = "terraform-registry"
   }
 }

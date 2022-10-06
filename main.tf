@@ -1,6 +1,6 @@
-/*
-VPC
-*/
+#####################
+### VPC
+#####################
 resource "aws_vpc" "main" {
   cidr_block                           = var.cidr_block
   instance_tenancy                     = var.instance_tenancy
@@ -12,7 +12,6 @@ resource "aws_vpc" "main" {
   ipv6_cidr_block_network_border_group = var.ipv6_cidr_block_network_border_group
   enable_dns_support                   = var.enable_dns_support
   enable_dns_hostnames                 = var.enable_dns_hostnames
-  enable_classiclink                   = var.enable_classiclink
   enable_classiclink_dns_support       = var.enable_classiclink_dns_support
   assign_generated_ipv6_cidr_block     = var.assign_generated_ipv6_cidr_block
   tags = merge(
@@ -23,9 +22,13 @@ resource "aws_vpc" "main" {
   )
 }
 
-/*
-VPC flow logs
-*/
+resource "aws_default_security_group" "main" {
+  vpc_id = aws_vpc.main.id
+}
+
+#####################
+### VPC flow logs
+#####################
 resource "aws_flow_log" "main" {
   vpc_id       = aws_vpc.main.id
   traffic_type = var.traffic_type
@@ -67,9 +70,9 @@ resource "aws_cloudwatch_log_group" "main" {
   )
 }
 
-/*
-VPC Logs S3 configuration
-*/
+#####################
+## VPC Logs S3 configuration
+#####################
 # resource "aws_s3_bucket" "main" {
 #   count  = var.log_destination_type == "s3" ? 1 : 0
 #   bucket = local.logs_bucket_name
@@ -121,9 +124,9 @@ VPC Logs S3 configuration
 #   restrict_public_buckets = true
 # }
 
-/*
-VPC Logs IAM Role
-*/
+#####################
+## VPC Logs IAM Role
+#####################
 resource "aws_iam_role" "main" {
   name               = "${var.name}-vpc-logs-role"
   assume_role_policy = local.vpc_assume_policy
@@ -147,9 +150,9 @@ resource "aws_iam_role_policy" "main" {
 #   policy = local.vpc_s3_role_policy
 # }
 
-/*
-DHCP options Set
-*/
+#####################
+## DHCP options Set
+#####################
 resource "aws_vpc_dhcp_options" "main" {
   domain_name          = var.dhcp_domain_name
   domain_name_servers  = var.domain_name_servers
@@ -164,17 +167,17 @@ resource "aws_vpc_dhcp_options" "main" {
   )
 }
 
-/*
-VPC DHCP Options Set Association
-*/
+##########################################
+### VPC DHCP Options Set Association
+##########################################
 resource "aws_vpc_dhcp_options_association" "main" {
   vpc_id          = aws_vpc.main.id
   dhcp_options_id = aws_vpc_dhcp_options.main.id
 }
 
-/*
-Internet Gateway
-*/
+#####################
+## Internet Gateway
+#####################
 resource "aws_internet_gateway" "main" {
   count  = length(var.public_subnets) > 0 ? 1 : 0
   vpc_id = aws_vpc.main.id
