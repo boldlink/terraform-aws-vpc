@@ -19,6 +19,8 @@ data "aws_nat_gateways" "a" {
     name   = "tag:Name"
     values = ["*.nat-gw.0"]
   }
+
+  depends_on = [module.public_subnets]
 }
 data "aws_nat_gateways" "b" {
   count  = var.enable_private_subnets == true ? 1 : 0
@@ -31,6 +33,8 @@ data "aws_nat_gateways" "b" {
     name   = "tag:Name"
     values = ["*.nat-gw.1"]
   }
+
+  depends_on = [module.public_subnets]
 }
 data "aws_nat_gateways" "c" {
   count  = var.enable_private_subnets == true ? 1 : 0
@@ -43,6 +47,8 @@ data "aws_nat_gateways" "c" {
     name   = "tag:Name"
     values = ["*.nat-gw.2"]
   }
+
+  depends_on = [module.public_subnets]
 }
 
 data "aws_iam_policy_document" "assume_policy" {

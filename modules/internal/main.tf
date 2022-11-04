@@ -1,6 +1,6 @@
-/*
-Internal routes
-*/
+##############################
+### Internal routes
+##############################
 
 resource "aws_route_table" "internal" {
   count  = length(var.cidrs) > 0 ? length(var.cidrs) : 0
@@ -13,9 +13,9 @@ resource "aws_route_table" "internal" {
   )
 }
 
-/*
-Internal Subnets: Private subnets without direct access to the internet
-*/
+##########################################################################################
+### Internal Subnets: Private subnets without direct access to the internet
+##########################################################################################
 
 resource "aws_subnet" "internal" {
   count             = length(var.cidrs) > 0 ? length(var.cidrs) : 0
@@ -32,9 +32,9 @@ resource "aws_subnet" "internal" {
   )
 }
 
-/*
-internal Route Association
-*/
+##############################
+### internal Route Association
+##############################
 
 resource "aws_route_table_association" "internal" {
   count          = length(var.cidrs) > 0 ? length(var.cidrs) : 0

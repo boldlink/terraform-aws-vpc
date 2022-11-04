@@ -19,7 +19,7 @@ module "public_subnets" {
 
 module "private_subnets" {
   source            = "./modules/private/"
-  for_each          = { for k, v in var.private_subnets : k => v if var.enable_private_subnets == true && var.enable_public_subnets == true }
+  for_each          = { for k, v in var.private_subnets : k => v if var.enable_private_subnets == true }
   name              = try(each.value.name, each.key)
   vpc_name          = var.name
   vpc_id            = aws_vpc.main.id
@@ -31,6 +31,8 @@ module "private_subnets" {
     var.tags,
     try(each.value.tags, null)
   )
+
+  depends_on = [module.public_subnets]
 }
 
 module "internal_subnets" {

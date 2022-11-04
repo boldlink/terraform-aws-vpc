@@ -1,6 +1,6 @@
-/*
-Publiс routes
-*/
+##############################
+### Publiс routes
+##############################
 
 resource "aws_route_table" "public" {
   count            = length(var.cidrs) > 0 ? 1 : 0
@@ -22,9 +22,9 @@ resource "aws_route" "public_internet_gateway" {
   gateway_id             = var.gateway_id
 }
 
-/*
-Public Subnets
-*/
+##############################
+### Public Subnets
+##############################
 resource "aws_subnet" "public" {
   count                   = length(var.cidrs) > 0 ? length(var.cidrs) : 0
   vpc_id                  = var.vpc_id
@@ -41,18 +41,18 @@ resource "aws_subnet" "public" {
   )
 }
 
-/*
-Public Route Association
-*/
+##############################
+### Public Route Association
+##############################
 resource "aws_route_table_association" "public" {
   count          = length(var.cidrs)
   subnet_id      = element(aws_subnet.public.*.id, count.index)
   route_table_id = aws_route_table.public[0].id
 }
 
-/*
-SingleAz NatG resources
-*/
+##############################
+### SingleAz NatG resources
+##############################
 resource "aws_eip" "single" {
   count = local.set_nat_single == true ? 1 : 0
   vpc   = true
@@ -82,9 +82,9 @@ resource "aws_nat_gateway" "single" {
   }
 }
 
-/*
-MultiAz NatG resources
-*/
+##############################
+### MultiAz NatG resources
+##############################
 resource "aws_eip" "multi" {
   count = local.set_nat_multi == true ? length(var.cidrs) : 0
   vpc   = true

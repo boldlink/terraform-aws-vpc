@@ -18,12 +18,12 @@ module "complete_vpc" {
   enable_dns_support      = true
   enable_dns_hostnames    = true
   enable_public_subnets   = true
-  enable_private_subnets  = false # Set to true after the first execution, see CHANGELOG.md for more details
+  enable_private_subnets  = true
   enable_internal_subnets = true
   public_subnets = {
     public1 = {
       cidrs = local.public1_subnets
-      nat   = "multi"
+      nat   = "single"
     },
     eks = {
       cidrs = local.eks_public_subnets
@@ -56,6 +56,10 @@ module "complete_vpc" {
   }
   tags = {
     Environment        = "examples"
-    "user::CostCenter" = "terraform-registry"
+    "user::CostCenter" = "terraform"
+    department         = "operations"
+    instance-scheduler = true
+    LayerName          = "c300-aws-vpc"
+    LayerId            = "c300"
   }
 }

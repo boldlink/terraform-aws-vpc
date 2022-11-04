@@ -9,7 +9,7 @@ module "single_nat_vpc" {
   name                   = "single-nat-vpc-example"
   cidr_block             = local.cidr_block
   enable_public_subnets  = true
-  enable_private_subnets = false # Set to true after the first execution, see CHANGELOG.md for more details
+  enable_private_subnets = true
   public_subnets = {
     public1 = {
       cidrs = local.public1_subnets
@@ -24,6 +24,10 @@ module "single_nat_vpc" {
 
   tags = {
     Environment        = "examples"
-    "user::CostCenter" = "terraform-registry"
+    "user::CostCenter" = "terraform"
+    department         = "operations"
+    instance-scheduler = true
+    LayerName          = "c300-aws-vpc"
+    LayerId            = "c300"
   }
 }

@@ -15,6 +15,10 @@ module "minimum_vpc" {
   }
   tags = {
     Environment        = "examples"
-    "user::CostCenter" = "terraform-registry"
+    "user::CostCenter" = "terraform"
+    department         = "operations"
+    instance-scheduler = true
+    LayerName          = "c300-aws-vpc"
+    LayerId            = "c300"
   }
 }
