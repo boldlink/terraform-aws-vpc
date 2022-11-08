@@ -16,16 +16,12 @@ This terraform module creates a VPC, it is an opininated module how to create a 
 - Internal or isloated which can only be accessed by other devices on the same VPC.
 
 Previous modules had reptitive code when it came to subnets, to resolve this we made the three types into sub-modules that can
-be added until you run out of address spaces with in the 3 types.
+be added until you run out of address spaces within the 3 types.
 
 This module also supports VPC private subnets with a `single` Nat Gateway (ex. dev or single AZ ) or `multi` Nat Gateway (ex. prod with HA).
 
 ### LIMITATIONS and KNOWN ISSUES:
-Current release `3.0.0` has a deployment dependency, you must first create the VPC with the Nat Gateway `var.nat = "single/multi"` and
-`var.enable_public_subnets = true` first and then you can set `var.enable_private_subnets = true` and re-deploy which will trigger the
-creation of the private subnets.
-
-Also with release `3.0.0` VPC Endpoints supoprt has been removed and will be added in subsquent releases.
+With releases `3.0.0` to `3.0.2` VPC Endpoints support has been removed and will be added in subsquent releases.
 
 
 ## Usage
@@ -35,31 +31,22 @@ Examples available [`here`](https://github.com/boldlink/terraform-aws-vpc/tree/m
 
 ```console
 module "minimum_vpc" {
-  source                = "boldlink/aws/vpc"
+  source                = "./../../"
   name                  = "minimum-vpc-example"
-  cidr_block            = "10.0.0.0/8"
+  cidr_block            = local.cidr_block
   enable_public_subnets = true
   public_subnets = {
-    public = {
-      cidrs = ["10.1.0.0/16","10.2.0.0/16","10.3.0.0/16"]
-      nat = "single"
-    }
-  }
-  private_subnets = {
-    private = {
-      cidrs = ["10.4.0.0/16","10.5.0.0/16","10.6.0.0/16"]
-      nat = "single"
-    }
-  }
-  internal_subnets = {
-    databases = {
-      cidrs = ["10.7.0.0/16","10.8.0.0/16","10.9.0.0/16"]
-      nat = "single"
+    public1 = {
+      cidrs = local.public1_subnets
     }
   }
   tags = {
-    environment        = "examples"
-    "user::CostCenter" = "terraform-registry"
+    Environment        = "examples"
+    "user::CostCenter" = "terraform"
+    department         = "operations"
+    instance-scheduler = true
+    LayerName          = "c300-aws-vpc"
+    LayerId            = "c300"
   }
 }
 ```

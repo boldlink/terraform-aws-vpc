@@ -22,8 +22,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [3.0.2] - 2022-11-04
 ### Description
-- fix: Private subnets must be created after the public subnets which requires two deployments right now :/. this requires that you deploy a vpc with private subnets in two stages so you can deploy multiple subnet groups using `var.enable_private_subnets` which are by default set to `false` has must both be set to `true` to create the private subnets, example of the output you get when there are no nat_gateways.
-- bug: When switching between `single` and `multi` NatGw's configuration the private subnets routes don't get immediately updated requiring to re-rerun stack after the creation of the new NatGw(s) to properly update the routes - this will cause downtime to any private networks devices.
+- fix: Private subnets required to be created after the public subnets which required two deployments. This required that you deploy a vpc with private subnets in two stages so you can deploy multiple subnet groups using `var.enable_private_subnets` which were by default set to `false` and which must both be set to `true` to create the private subnets, example of the output you get when there are no nat_gateways.
+- fix/bug: When switching between `single` and `multi` NatGw's configuration the private subnets routes were not immediately updated requiring to re-run stack after the creation of the new NatGw(s) to properly update the routes - this would cause downtime to any private networks devices.
 
 ## [3.0.1] - 2022-09-29
 ### Description
