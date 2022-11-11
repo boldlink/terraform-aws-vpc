@@ -10,12 +10,12 @@
 
 ## Description
 
-This terraform module creates a VPC, it is an opininated module how to create a VPC - we only have 3 types of subnets:
+This terraform module creates a VPC, it is an opininated module of how to create a VPC - we only have 3 types of subnets:
 - Public which are accessible directly from the internet and have an valid public IpV4/Ipv6 address.
 - Private wich are not directly accessible from the internet but can reach the internet.
-- Internal or isloated which can only be accessed by other devices on the same VPC.
+- Internal or isolated which can only be accessed by other devices on the same VPC.
 
-Previous modules had reptitive code when it came to subnets, to resolve this we made the three types into sub-modules that can
+Previous modules had repetitive code when it came to subnets, to resolve this we made the three types into sub-modules that can
 be added until you run out of address spaces within the 3 types.
 
 This module also supports VPC private subnets with a `single` Nat Gateway (ex. dev or single AZ ) or `multi` Nat Gateway (ex. prod with HA).
