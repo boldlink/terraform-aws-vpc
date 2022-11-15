@@ -23,7 +23,7 @@ module "complete_vpc" {
   public_subnets = {
     public1 = {
       cidrs = local.public1_subnets
-      nat   = "single"
+      nat   = "multi"
     },
     eks = {
       cidrs = local.eks_public_subnets
