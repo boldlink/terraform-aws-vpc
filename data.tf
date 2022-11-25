@@ -17,7 +17,7 @@ data "aws_nat_gateways" "a" {
   }
   filter {
     name   = "tag:Name"
-    values = ["*.nat-gw.0"]
+    values = ["${var.name}.*.nat-gw.0"]
   }
 
   depends_on = [module.public_subnets]
@@ -31,7 +31,7 @@ data "aws_nat_gateways" "b" {
   }
   filter {
     name   = "tag:Name"
-    values = ["*.nat-gw.1"]
+    values = ["${var.name}.*.nat-gw.1"]
   }
 
   depends_on = [module.public_subnets]
@@ -45,7 +45,7 @@ data "aws_nat_gateways" "c" {
   }
   filter {
     name   = "tag:Name"
-    values = ["*.nat-gw.2"]
+    values = ["${var.name}.*.nat-gw.2"]
   }
 
   depends_on = [module.public_subnets]

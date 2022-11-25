@@ -214,7 +214,6 @@ variable "internal_subnets" {
 variable "name" {
   type        = string
   description = "Input the name of stack"
-  default     = ""
 }
 
 variable "tags" {
