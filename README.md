@@ -67,7 +67,7 @@ module "minimum_vpc" {
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.39.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.41.0 |
 
 ## Modules
 
@@ -130,7 +130,7 @@ module "minimum_vpc" {
 | <a name="input_log_group_name"></a> [log\_group\_name](#input\_log\_group\_name) | Use this variable to override the default log group name `/aws/vpc/name` | `string` | `null` | no |
 | <a name="input_logs_kms_key_id"></a> [logs\_kms\_key\_id](#input\_logs\_kms\_key\_id) | (Optional) The ARN of the KMS Key to use when encrypting log data. | `string` | `null` | no |
 | <a name="input_max_aggregation_interval"></a> [max\_aggregation\_interval](#input\_max\_aggregation\_interval) | (Optional) The maximum interval of time during which a flow of packets is captured and aggregated into a flow log record. Valid Values: `60 seconds (1 minute) or 600 seconds (10 minutes)`. Default: `600`. | `number` | `600` | no |
-| <a name="input_name"></a> [name](#input\_name) | Input the name of stack | `string` | `""` | no |
+| <a name="input_name"></a> [name](#input\_name) | Input the name of stack | `string` | n/a | yes |
 | <a name="input_netbios_name_servers"></a> [netbios\_name\_servers](#input\_netbios\_name\_servers) | (Optional) List of NETBIOS name servers. | `list(string)` | `[]` | no |
 | <a name="input_netbios_node_type"></a> [netbios\_node\_type](#input\_netbios\_node\_type) | (Optional) The NetBIOS node type (1, 2, 4, or 8). AWS recommends to specify 2 since broadcast and multicast are not supported in their network. | `number` | `2` | no |
 | <a name="input_ntp_servers"></a> [ntp\_servers](#input\_ntp\_servers) | (Optional) List of NTP servers to configure. | `list(string)` | `[]` | no |
