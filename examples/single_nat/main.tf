@@ -26,7 +26,7 @@ module "single_nat_vpc" {
     Environment        = "examples"
     "user::CostCenter" = "terraform"
     department         = "operations"
-    instance-scheduler = true
+    InstanceScheduler  = true
     LayerName          = "c300-aws-vpc"
     LayerId            = "c300"
   }
