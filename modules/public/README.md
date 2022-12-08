@@ -33,7 +33,7 @@ This module creates public subnets.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.41.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.45.0 |
 
 ## Modules
 
@@ -58,6 +58,7 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_availability_zone"></a> [availability\_zone](#input\_availability\_zone) | The AZs to use to assign each subnet to | `list(string)` | n/a | yes |
 | <a name="input_cidrs"></a> [cidrs](#input\_cidrs) | Public subnet ipv4 CIDR list | `list(string)` | n/a | yes |
+| <a name="input_enable_private_subnets"></a> [enable\_private\_subnets](#input\_enable\_private\_subnets) | Activate private subnets module | `bool` | `false` | no |
 | <a name="input_gateway_id"></a> [gateway\_id](#input\_gateway\_id) | The internet gateway ID to use on the route of the public internet traffic | `string` | n/a | yes |
 | <a name="input_map_public_ip_on_launch"></a> [map\_public\_ip\_on\_launch](#input\_map\_public\_ip\_on\_launch) | Set the standard behavior for public ip assignement on ec2 launch, for public subnets the default should be true | `bool` | `true` | no |
 | <a name="input_name"></a> [name](#input\_name) | The public subnet name | `string` | n/a | yes |

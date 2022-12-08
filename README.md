@@ -67,7 +67,7 @@ module "minimum_vpc" {
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.41.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.45.0 |
 
 ## Modules
 

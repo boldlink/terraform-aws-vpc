@@ -53,6 +53,12 @@ variable "availability_zone" {
   type        = list(string)
 }
 
+variable "enable_private_subnets" {
+  description = "Activate private subnets module"
+  type        = bool
+  default     = false
+}
+
 variable "nat" {
   description = "Set your NatGw type, acceptable values are `single` for 1x NatGw only in a single AZ or `multi` for multiple NatGw's one per subnet"
   type        = string

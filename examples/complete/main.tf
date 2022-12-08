@@ -23,7 +23,7 @@ module "complete_vpc" {
   public_subnets = {
     public1 = {
       cidrs = local.public1_subnets
-      nat   = "multi"
+      #nat   = "multi"
     },
     eks = {
       cidrs = local.eks_public_subnets
@@ -58,8 +58,8 @@ module "complete_vpc" {
     Environment        = "examples"
     "user::CostCenter" = "terraform"
     department         = "operations"
-    Instance_Scheduler = true
-    Layer_Name         = "c300-aws-vpc"
-    Layer_Id           = "c300"
+    InstanceScheduler  = true
+    LayerName          = "c300-aws-vpc"
+    LayerId            = "c300"
   }
 }
