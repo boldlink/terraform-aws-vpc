@@ -10,9 +10,11 @@ locals {
   # vpc_s3_role_policy   = var.vpc_s3_role_policy == null ? data.aws_iam_policy_document.s3_role_policy.json : var.vpc_s3_role_policy
   # vpc_s3_bucket_policy = var.vpc_s3_bucket_policy == null ? data.aws_iam_policy_document.s3_bucket_policy.json : var.vpc_s3_bucket_policy
   log_format = var.log_destination_type == "s3" ? var.log_format : null
+  /*
   nat_gateways = [
     data.aws_nat_gateways.a.*.ids,
     data.aws_nat_gateways.b.*.ids,
     data.aws_nat_gateways.c.*.ids
   ]
+  */
 }

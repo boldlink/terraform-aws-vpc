@@ -8,6 +8,7 @@ data "aws_availability_zones" "available" {
   state = "available"
 }
 
+/*
 data "aws_nat_gateways" "a" {
   count  = var.enable_private_subnets == true ? 1 : 0
   vpc_id = aws_vpc.main.id
@@ -50,6 +51,7 @@ data "aws_nat_gateways" "c" {
 
   depends_on = [module.public_subnets]
 }
+*/
 
 data "aws_iam_policy_document" "assume_policy" {
   statement {
