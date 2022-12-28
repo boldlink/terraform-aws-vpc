@@ -30,7 +30,7 @@ jobs:
         uses: bridgecrewio/checkov-action@master
         with:
           file : tfplan.json
-          framework: terraform
+          framework: all
           output_format: sarif
           download_external_modules: true
           log_level: DEBUG
