@@ -5,6 +5,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+- fix: count conditional for creating routes for NAT Gateway brings an error when no natgateway is specified, i.e neither "single" nor "multi" is specified. This in turn requires two deployments to remove unwanted Nat Gateway
 - fix: Don't create the iam role when `log_destination_type == "s3"
 - feat: Improve the documentation and examples for the subnets submodules (public; private; internal)
 - feat: Improve the documentation and examples for the endpoints sub module
@@ -20,7 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - feat: Test and add to complete example ipv6 support
 - feat: Enable VPC endpoints and add examples
 
-## [3.0.2] - 2022-11-04
+## [3.0.2] - 2022-12-27
 ### Description
 - fix: Private subnets required to be created after the public subnets which required two deployments. This required that you deploy a vpc with private subnets in two stages so you can deploy multiple subnet groups using `var.enable_private_subnets` which were by default set to `false` and which must both be set to `true` to create the private subnets, example of the output you get when there are no nat_gateways.
 - fix/bug: When switching between `single` and `multi` NatGw's configuration the private subnets routes were not immediately updated requiring to re-run stack after the creation of the new NatGw(s) to properly update the routes - this would cause downtime to any private networks devices.

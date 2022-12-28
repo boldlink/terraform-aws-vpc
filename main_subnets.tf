@@ -10,12 +10,12 @@ module "public_subnets" {
   nat                     = try(each.value.nat, null)
   availability_zone       = try(each.value.override_azs, []) == [] ? data.aws_availability_zones.available.names : each.value.override_azs
   map_public_ip_on_launch = try(each.value.map_public_ip_on_launch, null)
-  # assign_ipv6_address_on_creation = try(each.value.assign_ipv6_address_on_creation, null)
-  gateway_id = aws_internet_gateway.main[0].id
+  gateway_id              = aws_internet_gateway.main[0].id
   tags = merge(
     var.tags,
     try(each.value.tags, null)
   )
+
 }
 
 module "private_subnets" {
@@ -26,8 +26,8 @@ module "private_subnets" {
   vpc_id            = aws_vpc.main.id
   cidrs             = try(each.value.cidrs)
   availability_zone = try(each.value.override_azs, []) == [] ? data.aws_availability_zones.available.names : each.value.override_azs
-  # assign_ipv6_address_on_creation = try(each.value.assign_ipv6_address_on_creation, null)
-  nat_gateway_ids = try(flatten(module.public_subnets.nat_gateway_ids), []) #flatten(local.nat_gateways)
+  nat_gateway_ids   = flatten(local.nat_gateways)
+
   tags = merge(
     var.tags,
     try(each.value.tags, null)
@@ -44,7 +44,6 @@ module "internal_subnets" {
   vpc_id            = aws_vpc.main.id
   cidrs             = try(each.value.cidrs)
   availability_zone = try(each.value.override_azs, []) == [] ? data.aws_availability_zones.available.names : each.value.override_azs
-  # assign_ipv6_address_on_creation = try(each.value.assign_ipv6_address_on_creation, null)
   tags = merge(
     var.tags,
     try(each.value.tags, null)

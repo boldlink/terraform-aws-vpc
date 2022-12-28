@@ -1,3 +1,3 @@
 locals {
-  create_nat = length(var.nat_gateway_ids) > 0 ? true : false
+  create_nat = var.nat_gateway_ids != [] && length(var.cidrs) > 0 ? true : false
 }

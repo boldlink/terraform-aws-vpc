@@ -46,3 +46,5 @@ resource "aws_route" "private_nat_gateway" {
   destination_cidr_block = "0.0.0.0/0"
   nat_gateway_id         = element(var.nat_gateway_ids, count.index)
 }
+
+
