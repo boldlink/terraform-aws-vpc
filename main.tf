@@ -12,7 +12,6 @@ resource "aws_vpc" "main" {
   ipv6_cidr_block_network_border_group = var.ipv6_cidr_block_network_border_group
   enable_dns_support                   = var.enable_dns_support
   enable_dns_hostnames                 = var.enable_dns_hostnames
-  enable_classiclink_dns_support       = var.enable_classiclink_dns_support
   assign_generated_ipv6_cidr_block     = var.assign_generated_ipv6_cidr_block
   tags = merge(
     {

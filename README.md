@@ -25,26 +25,39 @@ With releases `3.0.0` to `3.0.2` VPC Endpoints support has been removed and will
 
 
 ## Usage
-Examples available [`here`](https://github.com/boldlink/terraform-aws-vpc/tree/main/examples)
+Examples available [`here`](./examples)
 
 *NOTE*: These examples use the latest version of this module
 
 ```console
 module "minimum_vpc" {
-  source                = "./../../"
-  name                  = "minimum-vpc-example"
-  cidr_block            = local.cidr_block
-  enable_public_subnets = true
+  source                 = "./../../"
+  name                   = "minimum-vpc-example"
+  cidr_block             = "172.16.0.0/16"
+  enable_public_subnets  = true
+  enable_private_subnets = true
+
   public_subnets = {
     public1 = {
-      cidrs = local.public1_subnets
+      cidrs                   = ["172.16.3.0/24", "172.16.4.0/24", "172.16.5.0/24"]
+      map_public_ip_on_launch = true
+      nat                     = "single"
     }
   }
+
+  private_subnets = {
+    private = {
+      cidrs = ["172.16.6.0/24", "172.16.7.0/24", "172.16.8.0/24"]
+    }
+  }
+
   tags = {
     Environment        = "examples"
-    "user::CostCenter" = "terraform"
+    "user::CostCenter" = "terraform-registry"
     department         = "operations"
-    instance-scheduler = true
+    InstanceScheduler  = true
+    Project            = "aws-vpc"
+    Owner              = "hugo.almeida"
     LayerName          = "c300-aws-vpc"
     LayerId            = "c300"
   }
@@ -107,7 +120,6 @@ module "minimum_vpc" {
 | <a name="input_destination_options"></a> [destination\_options](#input\_destination\_options) | (Optional) Describes the destination options for a flow log. | `map(string)` | `{}` | no |
 | <a name="input_dhcp_domain_name"></a> [dhcp\_domain\_name](#input\_dhcp\_domain\_name) | (Optional) the suffix domain name to use by default when resolving non Fully Qualified Domain Names. In other words, this is what ends up being the `search` value in the `/etc/resolv.conf` file. | `string` | `null` | no |
 | <a name="input_domain_name_servers"></a> [domain\_name\_servers](#input\_domain\_name\_servers) | (Optional) List of name servers to configure in /etc/resolv.conf. If you want to use the default AWS nameservers you should set this to `AmazonProvidedDNS`. | `list(string)` | <pre>[<br>  "AmazonProvidedDNS"<br>]</pre> | no |
-| <a name="input_enable_classiclink_dns_support"></a> [enable\_classiclink\_dns\_support](#input\_enable\_classiclink\_dns\_support) | (Optional) A boolean flag to enable/disable ClassicLink DNS Support for the VPC. Only valid in regions and accounts that support EC2 Classic. | `bool` | `false` | no |
 | <a name="input_enable_dns_hostnames"></a> [enable\_dns\_hostnames](#input\_enable\_dns\_hostnames) | (Optional) A boolean flag to enable/disable DNS hostnames in the VPC. Defaults `false`. | `bool` | `false` | no |
 | <a name="input_enable_dns_support"></a> [enable\_dns\_support](#input\_enable\_dns\_support) | (Optional) A boolean flag to enable/disable DNS support in the VPC. Defaults `true`. | `bool` | `true` | no |
 | <a name="input_enable_internal_subnets"></a> [enable\_internal\_subnets](#input\_enable\_internal\_subnets) | Activate internal subnets module | `bool` | `false` | no |

@@ -22,8 +22,9 @@ module "complete_vpc" {
   enable_internal_subnets = true
   public_subnets = {
     public1 = {
-      cidrs = local.public1_subnets
-      nat   = "multi"
+      cidrs                   = local.public1_subnets
+      map_public_ip_on_launch = true
+      nat                     = "multi"
     },
     eks = {
       cidrs = local.eks_public_subnets
@@ -56,9 +57,11 @@ module "complete_vpc" {
   }
   tags = {
     Environment        = "examples"
-    "user::CostCenter" = "terraform"
+    "user::CostCenter" = "terraform-registry"
     department         = "operations"
     InstanceScheduler  = true
+    Project            = "aws-vpc"
+    Owner              = "hugo.almeida"
     LayerName          = "c300-aws-vpc"
     LayerId            = "c300"
   }

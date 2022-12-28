@@ -62,12 +62,6 @@ variable "enable_dns_hostnames" {
   default     = false
 }
 
-variable "enable_classiclink_dns_support" {
-  type        = bool
-  description = "(Optional) A boolean flag to enable/disable ClassicLink DNS Support for the VPC. Only valid in regions and accounts that support EC2 Classic."
-  default     = false
-}
-
 variable "assign_generated_ipv6_cidr_block" {
   type        = bool
   description = "(Optional) Requests an Amazon-provided IPv6 CIDR block with a /56 prefix length for the VPC. You cannot specify the range of IP addresses, or the size of the CIDR block. Default is false. Conflicts with `ipv6_ipam_pool_id`"

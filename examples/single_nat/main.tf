@@ -12,8 +12,9 @@ module "single_nat_vpc" {
   enable_private_subnets = true
   public_subnets = {
     public1 = {
-      cidrs = local.public1_subnets
-      nat   = "single"
+      cidrs                   = local.public1_subnets
+      map_public_ip_on_launch = true
+      nat                     = "single"
     }
   }
   private_subnets = {
@@ -24,9 +25,11 @@ module "single_nat_vpc" {
 
   tags = {
     Environment        = "examples"
-    "user::CostCenter" = "terraform"
+    "user::CostCenter" = "terraform-registry"
     department         = "operations"
     InstanceScheduler  = true
+    Project            = "aws-vpc"
+    Owner              = "hugo.almeida"
     LayerName          = "c300-aws-vpc"
     LayerId            = "c300"
   }
