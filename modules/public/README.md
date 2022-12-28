@@ -72,7 +72,6 @@ No modules.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_nat_gateway_ids"></a> [nat\_gateway\_ids](#output\_nat\_gateway\_ids) | Output all natGW information |
 | <a name="output_subnets"></a> [subnets](#output\_subnets) | Output all subnet information |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
