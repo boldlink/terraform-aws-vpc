@@ -14,6 +14,7 @@ on:
       - 'releases/*'
       - 'chore/*'
       - 'chores/*'
+      
 permissions: read-all
 
 env:

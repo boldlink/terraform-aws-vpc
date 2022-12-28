@@ -27,7 +27,10 @@ jobs:
           python-version: 3.9
       - name: Test terraform with Checkov
         id: checkov
-        uses: bridgecrewio/checkov-action@v12
+        uses: bridgecrewio/checkov-action@master
         with:
           file : tfplan.json
           framework: terraform
+          output_format: sarif
+          download_external_modules: true
+          log_level: DEBUG
