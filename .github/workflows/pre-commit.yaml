@@ -15,6 +15,8 @@ on:
       - 'chore/*'
       - 'chores/*'
 
+permissions: read-all
+
 env:
   TF_VER: "0.14.11"
   TF_DOCS_VER: "v0.16.0"
@@ -69,6 +71,8 @@ jobs:
       uses: EndBug/add-and-commit@v9
       with:
         message: '[Boldlinksig]: Pre-commit auto updated files on ${{ steps.date.outputs.date }}.'
+        fetch: true
+        pull: '--rebase --autostash'
         author_name: boldlinksig
         author_email: boldlinksig@boldlink.io
         committer_name: boldlinksig

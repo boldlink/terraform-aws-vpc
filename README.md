@@ -1,5 +1,8 @@
+[![Build Status](https://github.com/boldlink/terraform-aws-vpc/actions/workflows/release.yaml/badge.svg)](https://github.com/boldlink/terraform-aws-vpc/actions)
 [![Build Status](https://github.com/boldlink/terraform-aws-vpc/actions/workflows/pre-commit.yaml/badge.svg)](https://github.com/boldlink/terraform-aws-vpc/actions)
+[![Build Status](https://github.com/boldlink/terraform-aws-vpc/actions/workflows/pr-labeler.yaml/badge.svg)](https://github.com/boldlink/terraform-aws-vpc/actions)
 [![Build Status](https://github.com/boldlink/terraform-aws-vpc/actions/workflows/checkov.yaml/badge.svg)](https://github.com/boldlink/terraform-aws-vpc/actions)
+[![Build Status](https://github.com/boldlink/terraform-aws-vpc/actions/workflows/auto-badge.yaml/badge.svg)](https://github.com/boldlink/terraform-aws-vpc/actions)
 
 [<img src="https://avatars.githubusercontent.com/u/25388280?s=200&v=4" width="96"/>](https://boldlink.io)
 
@@ -7,56 +10,56 @@
 
 ## Description
 
-This terraform module creates a VPC, it is an opininated module how to create a VPC - we only have 3 types of subnets:
+This terraform module creates a VPC, it is an opininated module of how to create a VPC - we only have 3 types of subnets:
 - Public which are accessible directly from the internet and have an valid public IpV4/Ipv6 address.
 - Private wich are not directly accessible from the internet but can reach the internet.
-- Internal or isloated which can only be accessed by other devices on the same VPC.
+- Internal or isolated which can only be accessed by other devices on the same VPC.
 
-Previous modules had reptitive code when it came to subnets, to resolve this we made the three types into sub-modules that can
-be added until you run out of address spaces with in the 3 types.
+Previous modules had repetitive code when it came to subnets, to resolve this we made the three types into sub-modules that can
+be added until you run out of address spaces within the 3 types.
 
 This module also supports VPC private subnets with a `single` Nat Gateway (ex. dev or single AZ ) or `multi` Nat Gateway (ex. prod with HA).
 
 ### LIMITATIONS and KNOWN ISSUES:
-Current release `3.0.0` has a deployment dependency, you must first create the VPC with the Nat Gateway `var.nat = "single/multi"` and
-`var.enable_public_subnets = true` first and then you can set `var.enable_private_subnets = true` and re-deploy which will trigger the
-creation of the private subnets.
-
-Also with release `3.0.0` VPC Endpoints supoprt has been removed and will be added in subsquent releases.
+With releases `3.0.0` to `3.0.2` VPC Endpoints support has been removed and will be added in subsquent releases.
 
 
 ## Usage
-Examples available [`here`](https://github.com/boldlink/terraform-aws-vpc/tree/main/examples)
+Examples available [`here`](./examples)
 
 *NOTE*: These examples use the latest version of this module
 
 ```console
 module "minimum_vpc" {
-  source                = "boldlink/aws/vpc"
-  name                  = "minimum-vpc-example"
-  cidr_block            = "10.0.0.0/8"
-  enable_public_subnets = true
+  source                 = "./../../"
+  name                   = "minimum-vpc-example"
+  cidr_block             = "172.16.0.0/16"
+  enable_public_subnets  = true
+  enable_private_subnets = true
+
   public_subnets = {
-    public = {
-      cidrs = ["10.1.0.0/16","10.2.0.0/16","10.3.0.0/16"]
-      nat = "single"
+    public1 = {
+      cidrs                   = ["172.16.3.0/24", "172.16.4.0/24", "172.16.5.0/24"]
+      map_public_ip_on_launch = true
+      nat                     = "single"
     }
   }
+
   private_subnets = {
     private = {
-      cidrs = ["10.4.0.0/16","10.5.0.0/16","10.6.0.0/16"]
-      nat = "single"
+      cidrs = ["172.16.6.0/24", "172.16.7.0/24", "172.16.8.0/24"]
     }
   }
-  internal_subnets = {
-    databases = {
-      cidrs = ["10.7.0.0/16","10.8.0.0/16","10.9.0.0/16"]
-      nat = "single"
-    }
-  }
+
   tags = {
-    environment        = "examples"
+    Environment        = "examples"
     "user::CostCenter" = "terraform-registry"
+    department         = "operations"
+    InstanceScheduler  = true
+    Project            = "aws-vpc"
+    Owner              = "hugo.almeida"
+    LayerName          = "c300-aws-vpc"
+    LayerId            = "c300"
   }
 }
 ```
@@ -71,13 +74,13 @@ module "minimum_vpc" {
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.14.11 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.25.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.30.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.32.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.48.0 |
 
 ## Modules
 
@@ -104,9 +107,7 @@ module "minimum_vpc" {
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_iam_policy_document.assume_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.role_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
-| [aws_nat_gateways.a](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/nat_gateways) | data source |
-| [aws_nat_gateways.b](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/nat_gateways) | data source |
-| [aws_nat_gateways.c](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/nat_gateways) | data source |
+| [aws_nat_gateways.all](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/nat_gateways) | data source |
 | [aws_partition.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) | data source |
 | [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
 
@@ -119,7 +120,6 @@ module "minimum_vpc" {
 | <a name="input_destination_options"></a> [destination\_options](#input\_destination\_options) | (Optional) Describes the destination options for a flow log. | `map(string)` | `{}` | no |
 | <a name="input_dhcp_domain_name"></a> [dhcp\_domain\_name](#input\_dhcp\_domain\_name) | (Optional) the suffix domain name to use by default when resolving non Fully Qualified Domain Names. In other words, this is what ends up being the `search` value in the `/etc/resolv.conf` file. | `string` | `null` | no |
 | <a name="input_domain_name_servers"></a> [domain\_name\_servers](#input\_domain\_name\_servers) | (Optional) List of name servers to configure in /etc/resolv.conf. If you want to use the default AWS nameservers you should set this to `AmazonProvidedDNS`. | `list(string)` | <pre>[<br>  "AmazonProvidedDNS"<br>]</pre> | no |
-| <a name="input_enable_classiclink_dns_support"></a> [enable\_classiclink\_dns\_support](#input\_enable\_classiclink\_dns\_support) | (Optional) A boolean flag to enable/disable ClassicLink DNS Support for the VPC. Only valid in regions and accounts that support EC2 Classic. | `bool` | `false` | no |
 | <a name="input_enable_dns_hostnames"></a> [enable\_dns\_hostnames](#input\_enable\_dns\_hostnames) | (Optional) A boolean flag to enable/disable DNS hostnames in the VPC. Defaults `false`. | `bool` | `false` | no |
 | <a name="input_enable_dns_support"></a> [enable\_dns\_support](#input\_enable\_dns\_support) | (Optional) A boolean flag to enable/disable DNS support in the VPC. Defaults `true`. | `bool` | `true` | no |
 | <a name="input_enable_internal_subnets"></a> [enable\_internal\_subnets](#input\_enable\_internal\_subnets) | Activate internal subnets module | `bool` | `false` | no |
@@ -140,7 +140,7 @@ module "minimum_vpc" {
 | <a name="input_log_group_name"></a> [log\_group\_name](#input\_log\_group\_name) | Use this variable to override the default log group name `/aws/vpc/name` | `string` | `null` | no |
 | <a name="input_logs_kms_key_id"></a> [logs\_kms\_key\_id](#input\_logs\_kms\_key\_id) | (Optional) The ARN of the KMS Key to use when encrypting log data. | `string` | `null` | no |
 | <a name="input_max_aggregation_interval"></a> [max\_aggregation\_interval](#input\_max\_aggregation\_interval) | (Optional) The maximum interval of time during which a flow of packets is captured and aggregated into a flow log record. Valid Values: `60 seconds (1 minute) or 600 seconds (10 minutes)`. Default: `600`. | `number` | `600` | no |
-| <a name="input_name"></a> [name](#input\_name) | Input the name of stack | `string` | `""` | no |
+| <a name="input_name"></a> [name](#input\_name) | Input the name of stack | `string` | n/a | yes |
 | <a name="input_netbios_name_servers"></a> [netbios\_name\_servers](#input\_netbios\_name\_servers) | (Optional) List of NETBIOS name servers. | `list(string)` | `[]` | no |
 | <a name="input_netbios_node_type"></a> [netbios\_node\_type](#input\_netbios\_node\_type) | (Optional) The NetBIOS node type (1, 2, 4, or 8). AWS recommends to specify 2 since broadcast and multicast are not supported in their network. | `number` | `2` | no |
 | <a name="input_ntp_servers"></a> [ntp\_servers](#input\_ntp\_servers) | (Optional) List of NTP servers to configure. | `list(string)` | `[]` | no |

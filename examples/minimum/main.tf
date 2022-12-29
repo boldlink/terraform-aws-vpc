@@ -10,11 +10,16 @@ module "minimum_vpc" {
   enable_public_subnets = true
   public_subnets = {
     public1 = {
-      cidrs = local.public1_subnets
+      cidrs                   = local.public1_subnets
+      map_public_ip_on_launch = true
     }
   }
   tags = {
     Environment        = "examples"
     "user::CostCenter" = "terraform-registry"
+    department         = "operations"
+    InstanceScheduler  = true
+    LayerName          = "c300-aws-vpc"
+    LayerId            = "c300"
   }
 }

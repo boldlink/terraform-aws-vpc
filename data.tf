@@ -8,7 +8,7 @@ data "aws_availability_zones" "available" {
   state = "available"
 }
 
-data "aws_nat_gateways" "a" {
+data "aws_nat_gateways" "all" {
   count  = var.enable_private_subnets == true ? 1 : 0
   vpc_id = aws_vpc.main.id
   filter {
@@ -17,32 +17,10 @@ data "aws_nat_gateways" "a" {
   }
   filter {
     name   = "tag:Name"
-    values = ["*.nat-gw.0"]
+    values = ["${var.name}.*.nat-gw.*"]
   }
-}
-data "aws_nat_gateways" "b" {
-  count  = var.enable_private_subnets == true ? 1 : 0
-  vpc_id = aws_vpc.main.id
-  filter {
-    name   = "state"
-    values = ["available"]
-  }
-  filter {
-    name   = "tag:Name"
-    values = ["*.nat-gw.1"]
-  }
-}
-data "aws_nat_gateways" "c" {
-  count  = var.enable_private_subnets == true ? 1 : 0
-  vpc_id = aws_vpc.main.id
-  filter {
-    name   = "state"
-    values = ["available"]
-  }
-  filter {
-    name   = "tag:Name"
-    values = ["*.nat-gw.2"]
-  }
+
+  depends_on = [module.public_subnets]
 }
 
 data "aws_iam_policy_document" "assume_policy" {
