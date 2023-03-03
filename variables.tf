@@ -216,20 +216,8 @@ variable "tags" {
   default     = {}
 }
 
-# variable "logs_bucket_name" {
-#   description = "The name of the s3 bucket to store the logs, use this variable of you want to override the default name `name-vpc-logs-region-account_id`"
-#   type        = string
-#   default     = null
-# }
-
-variable "vpc_assume_policy" {
-  description = "Override the default vpc flow log group assume role policy"
-  type        = string
-  default     = null
-}
-
-variable "vpc_role_policy" {
-  description = "Override the default vpc flow log group role policy"
+variable "logs_bucket_arn" {
+  description = "The ARN of the s3 bucket to store the logs. Provide this when the value of `log_destination_type` is `s3`"
   type        = string
   default     = null
 }

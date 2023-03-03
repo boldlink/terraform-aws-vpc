@@ -7,7 +7,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 - fix: count conditional for creating routes for NAT Gateway brings an error when no natgateway is specified, i.e neither "single" nor "multi" is specified. This in turn requires two deployments to remove unwanted Nat Gateway
 - fix: Remove `enable_private_subnets` variable from public subnets module and instead add a condition in private subnets module
-- fix: Don't create the iam role when `log_destination_type == "s3"
 - feat: Improve the documentation and examples for the subnets submodules (public; private; internal)
 - feat: Improve the documentation and examples for the endpoints sub module
 - feat: Improve the documentation and examples for the vpc-ipam sub module
@@ -21,6 +20,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - feat: Remove the data source for the nat gw discovery and make it an option on the private module to remove dependencies
 - feat: Test and add to complete example ipv6 support
 - feat: Enable VPC endpoints and add examples
+
+## [3.0.3] - 2023-03-02
+### Description
+- fix: Don't create the iam role when `log_destination_type == "s3"
 
 ## [3.0.2] - 2022-12-27
 ### Description

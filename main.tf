@@ -29,17 +29,16 @@ resource "aws_default_security_group" "main" {
 ### VPC flow logs
 #####################
 resource "aws_flow_log" "main" {
-  vpc_id       = aws_vpc.main.id
-  traffic_type = var.traffic_type
-  eni_id       = var.flow_log_eni_id
-  iam_role_arn = aws_iam_role.main.arn
-  # iam_role_arn             = var.log_destination_type == "cloud-watch-logs" ? aws_iam_role.main.arn : null
-  log_destination_type = var.log_destination_type
-  # log_destination          = var.log_destination_type == "cloud-watch-logs" ? aws_cloudwatch_log_group.main[0].arn : aws_s3_bucket.main[0].arn
-  log_destination          = aws_cloudwatch_log_group.main[0].arn
+  vpc_id                   = aws_vpc.main.id
+  traffic_type             = var.traffic_type
+  eni_id                   = var.flow_log_eni_id
+  log_destination_type     = var.log_destination_type
+  log_destination          = var.log_destination_type == "cloud-watch-logs" ? aws_cloudwatch_log_group.main[0].arn : (var.log_destination_type == "s3" && var.logs_bucket_arn != null ? var.logs_bucket_arn : null)
   subnet_id                = var.flow_log_subnet_id
   log_format               = local.log_format
   max_aggregation_interval = var.max_aggregation_interval
+  tags                     = merge({ "Name" = var.name }, var.tags)
+
   dynamic "destination_options" {
     for_each = var.destination_options
     content {
@@ -48,12 +47,26 @@ resource "aws_flow_log" "main" {
       per_hour_partition         = lookup(destination_options.value, "per_hour_partition", null)
     }
   }
-  tags = merge(
-    {
-      "Name" = var.name
-    },
-    var.tags,
-  )
+
+  # Only create the IAM role when log_destination_type is cloud-watch-logs
+  # Otherwise, set the IAM role ARN to null
+  iam_role_arn = var.log_destination_type == "cloud-watch-logs" ? aws_iam_role.main[0].arn : null
+}
+
+# Create IAM role only when log_destination_type is cloud-watch-logs
+resource "aws_iam_role" "main" {
+  count              = var.log_destination_type == "cloud-watch-logs" ? 1 : 0
+  name               = "${var.name}-flowlogs-role"
+  assume_role_policy = local.vpc_assume_policy
+  tags               = merge({ "Name" = "${var.name}-flowlogs-role" }, var.tags)
+}
+
+# Create the IAM policy to the IAM role when `log_destination_type` is `cloud-watch-logs`
+resource "aws_iam_role_policy" "main" {
+  count  = var.log_destination_type == "cloud-watch-logs" ? 1 : 0
+  name   = "${var.name}-vpc-logs-policy"
+  role   = aws_iam_role.main[0].id
+  policy = local.vpc_role_policy
 }
 
 resource "aws_cloudwatch_log_group" "main" {
@@ -121,32 +134,6 @@ resource "aws_cloudwatch_log_group" "main" {
 #   block_public_policy     = true
 #   ignore_public_acls      = true
 #   restrict_public_buckets = true
-# }
-
-#####################
-## VPC Logs IAM Role
-#####################
-resource "aws_iam_role" "main" {
-  name               = "${var.name}-vpc-logs-role"
-  assume_role_policy = local.vpc_assume_policy
-  tags = merge(
-    {
-      "Name" = "${var.name}-vpc-logs-role"
-    },
-    var.tags,
-  )
-}
-
-resource "aws_iam_role_policy" "main" {
-  name   = "${var.name}-vpc-logs-policy"
-  role   = aws_iam_role.main.id
-  policy = local.vpc_role_policy
-}
-
-# resource "aws_iam_role_policy" "s3" {
-#   count  = var.log_destination_type == "s3" ? 1 : 0
-#   role   = aws_iam_role.main.id
-#   policy = local.vpc_s3_role_policy
 # }
 
 #####################
