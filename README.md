@@ -1,3 +1,6 @@
+[![License](https://img.shields.io/badge/License-Apache-blue.svg)](https://github.com/boldlink/terraform-aws-vpc/blob/main/LICENSE)
+[![Latest Release](https://img.shields.io/github/release/boldlink/terraform-aws-vpc.svg)](https://github.com/boldlink/terraform-aws-vpc/releases/latest)
+[![Build Status](https://github.com/boldlink/terraform-aws-vpc/actions/workflows/update.yaml/badge.svg)](https://github.com/boldlink/terraform-aws-vpc/actions)
 [![Build Status](https://github.com/boldlink/terraform-aws-vpc/actions/workflows/release.yaml/badge.svg)](https://github.com/boldlink/terraform-aws-vpc/actions)
 [![Build Status](https://github.com/boldlink/terraform-aws-vpc/actions/workflows/pre-commit.yaml/badge.svg)](https://github.com/boldlink/terraform-aws-vpc/actions)
 [![Build Status](https://github.com/boldlink/terraform-aws-vpc/actions/workflows/pr-labeler.yaml/badge.svg)](https://github.com/boldlink/terraform-aws-vpc/actions)
@@ -27,11 +30,11 @@ With releases `3.0.0` to `3.0.2` VPC Endpoints support has been removed and will
 ## Usage
 Examples available [`here`](./examples)
 
-*NOTE*: These examples use the latest version of this module
+**NOTE**: These examples use the latest version of this module
 
-```console
+```hcl
 module "minimum_vpc" {
-  source                 = "./../../"
+  source                 = "boldlink/vpc/aws"
   name                   = "minimum-vpc-example"
   cidr_block             = "172.16.0.0/16"
   enable_public_subnets  = true
@@ -74,13 +77,13 @@ module "minimum_vpc" {
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.14.11 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.30.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.50.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.48.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.57.0 |
 
 ## Modules
 
@@ -138,6 +141,7 @@ module "minimum_vpc" {
 | <a name="input_log_destination_type"></a> [log\_destination\_type](#input\_log\_destination\_type) | (Optional) The type of the logging destination. Valid values: `cloud-watch-logs`, `s3`. Default: `cloud-watch-logs`. | `string` | `"cloud-watch-logs"` | no |
 | <a name="input_log_format"></a> [log\_format](#input\_log\_format) | (Optional) The fields to include in the flow log record, in the order in which they should appear. | `string` | `null` | no |
 | <a name="input_log_group_name"></a> [log\_group\_name](#input\_log\_group\_name) | Use this variable to override the default log group name `/aws/vpc/name` | `string` | `null` | no |
+| <a name="input_logs_bucket_arn"></a> [logs\_bucket\_arn](#input\_logs\_bucket\_arn) | The ARN of the s3 bucket to store the logs. Provide this when the value of `log_destination_type` is `s3` | `string` | `null` | no |
 | <a name="input_logs_kms_key_id"></a> [logs\_kms\_key\_id](#input\_logs\_kms\_key\_id) | (Optional) The ARN of the KMS Key to use when encrypting log data. | `string` | `null` | no |
 | <a name="input_max_aggregation_interval"></a> [max\_aggregation\_interval](#input\_max\_aggregation\_interval) | (Optional) The maximum interval of time during which a flow of packets is captured and aggregated into a flow log record. Valid Values: `60 seconds (1 minute) or 600 seconds (10 minutes)`. Default: `600`. | `number` | `600` | no |
 | <a name="input_name"></a> [name](#input\_name) | Input the name of stack | `string` | n/a | yes |
@@ -149,8 +153,6 @@ module "minimum_vpc" {
 | <a name="input_retention_in_days"></a> [retention\_in\_days](#input\_retention\_in\_days) | (Optional) Specifies the number of days you want to retain log events in the specified log group. Possible values are: 1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1827, 3653, and 0. If you select 0, the events in the log group are always retained and never expire | `number` | `0` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | (Optional) A map of tags to assign to the resource. If configured with a provider [`default_tags` configuration block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/docs#default_tags-configuration-block) present, tags with matching keys will overwrite those defined at the provider-level. | `map(string)` | `{}` | no |
 | <a name="input_traffic_type"></a> [traffic\_type](#input\_traffic\_type) | (Required) The type of traffic to capture. Valid values: `ACCEPT`,`REJECT`, `ALL`. | `string` | `"ALL"` | no |
-| <a name="input_vpc_assume_policy"></a> [vpc\_assume\_policy](#input\_vpc\_assume\_policy) | Override the default vpc flow log group assume role policy | `string` | `null` | no |
-| <a name="input_vpc_role_policy"></a> [vpc\_role\_policy](#input\_vpc\_role\_policy) | Override the default vpc flow log group role policy | `string` | `null` | no |
 
 ## Outputs
 
