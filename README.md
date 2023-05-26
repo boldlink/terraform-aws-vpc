@@ -84,7 +84,7 @@ module "minimum_vpc" {
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.63.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.0.0 |
 
 ## Modules
 
@@ -162,7 +162,6 @@ module "minimum_vpc" {
 | <a name="output_default_network_acl_id"></a> [default\_network\_acl\_id](#output\_default\_network\_acl\_id) | The ID of the network ACL created by default on VPC creation |
 | <a name="output_default_route_table_id"></a> [default\_route\_table\_id](#output\_default\_route\_table\_id) | The ID of the route table created by default on VPC creation |
 | <a name="output_default_security_group_id"></a> [default\_security\_group\_id](#output\_default\_security\_group\_id) | The ID of the security group created by default on VPC creation |
-| <a name="output_enable_classiclink"></a> [enable\_classiclink](#output\_enable\_classiclink) | Whether or not the VPC has Classiclink enabled |
 | <a name="output_enable_dns_hostnames"></a> [enable\_dns\_hostnames](#output\_enable\_dns\_hostnames) | Whether or not the VPC has DNS hostname support |
 | <a name="output_enable_dns_support"></a> [enable\_dns\_support](#output\_enable\_dns\_support) | Whether or not the VPC has DNS support |
 | <a name="output_flow_logs_arn"></a> [flow\_logs\_arn](#output\_flow\_logs\_arn) | The ARN of the Flow Log. |
