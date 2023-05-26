@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [3.0.4] - 2023-5-26
 ### Description
 - fix: removed deprecated output `enable_classiclink`
+- fix: removed deprecated attribute `vpc` in `aws_eip` resource.
 
 ## [3.0.3] - 2023-03-02
 ### Description
