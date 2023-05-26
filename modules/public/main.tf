@@ -55,7 +55,7 @@ resource "aws_route_table_association" "public" {
 ##############################
 resource "aws_eip" "single" {
   count = local.set_nat_single == true ? 1 : 0
-  vpc   = true
+  domain   = "vpc"
   tags = merge(
     {
       "Name" = "${var.vpc_name}.${var.name}.eip.${count.index}"
@@ -87,7 +87,7 @@ resource "aws_nat_gateway" "single" {
 ##############################
 resource "aws_eip" "multi" {
   count = local.set_nat_multi == true ? length(var.cidrs) : 0
-  vpc   = true
+  domain   = "vpc"
   tags = merge(
     {
       "Name" = "${var.vpc_name}.${var.name}.eip.${count.index}"

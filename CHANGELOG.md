@@ -21,6 +21,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - feat: Test and add to complete example ipv6 support
 - feat: Enable VPC endpoints and add examples
 
+## [3.0.4] - 2023-5-26
+### Description
+- fix: removed deprecated output `enable_classiclink`
+
 ## [3.0.3] - 2023-03-02
 ### Description
 - fix: Don't create the iam role when `log_destination_type == "s3"
@@ -70,8 +74,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Stand alone VPC created only with default security
 
 
-[Unreleased]: https://github.com/boldlink/terraform-aws-vpc/compare/3.0.3...HEAD
+[Unreleased]: https://github.com/boldlink/terraform-aws-vpc/compare/3.0.4...HEAD
 
+[3.0.4]: https://github.com/boldlink/terraform-aws-vpc/releases/tag/3.0.4
 [3.0.3]: https://github.com/boldlink/terraform-aws-vpc/releases/tag/3.0.3
 [3.0.2]: https://github.com/boldlink/terraform-aws-vpc/releases/tag/3.0.2
 [3.0.1]: https://github.com/boldlink/terraform-aws-vpc/releases/tag/3.0.1
