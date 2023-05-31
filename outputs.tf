@@ -27,10 +27,6 @@ output "enable_dns_hostnames" {
   description = "Whether or not the VPC has DNS hostname support"
 }
 
-output "enable_classiclink" {
-  value       = aws_vpc.main.enable_classiclink
-  description = "Whether or not the VPC has Classiclink enabled"
-}
 
 output "main_route_table_id" {
   value       = aws_vpc.main.main_route_table_id

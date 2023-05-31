@@ -20,6 +20,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - feat: Remove the data source for the nat gw discovery and make it an option on the private module to remove dependencies
 - feat: Test and add to complete example ipv6 support
 - feat: Enable VPC endpoints and add examples
+- fix: CKV2_AWS_19: "Ensure that all EIP addresses allocated to a VPC are attached to EC2 instances"
+
+## [3.0.4] - 2023-5-26
+### Description
+- fix: removed deprecated output `enable_classiclink`
+- fix: removed deprecated attribute `vpc` in `aws_eip` resource.
 
 ## [3.0.3] - 2023-03-02
 ### Description
@@ -70,8 +76,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Stand alone VPC created only with default security
 
 
-[Unreleased]: https://github.com/boldlink/terraform-aws-vpc/compare/3.0.3...HEAD
+[Unreleased]: https://github.com/boldlink/terraform-aws-vpc/compare/3.0.4...HEAD
 
+[3.0.4]: https://github.com/boldlink/terraform-aws-vpc/releases/tag/3.0.4
 [3.0.3]: https://github.com/boldlink/terraform-aws-vpc/releases/tag/3.0.3
 [3.0.2]: https://github.com/boldlink/terraform-aws-vpc/releases/tag/3.0.2
 [3.0.1]: https://github.com/boldlink/terraform-aws-vpc/releases/tag/3.0.1
