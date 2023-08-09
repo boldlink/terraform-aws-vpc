@@ -1,4 +1,4 @@
-output "subnets" {
-  description = "Output all subnet information"
-  value       = aws_subnet.public.*
+output "subnet_ids" {
+  description = "List of public subnet IDs"
+  value       = aws_subnet.public[*].id
 }

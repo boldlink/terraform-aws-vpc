@@ -8,6 +8,18 @@ variable "cidr_block" {
   default     = null
 }
 
+variable "vpc_endpoints" {
+  type        = list(any)
+  description = "Configuration lists for vpc endpoints"
+  default     = []
+}
+
+variable "endpoint_subnet_scope" {
+  type        = string
+  description = "Specify the subnet scope for the created endpoints. Valid values are `private` and `internal`"
+  default     = null
+}
+
 variable "instance_tenancy" {
   type        = string
   description = "(Optional) A tenancy option for instances launched into the VPC. Default is `default`, which makes your instances shared on the host. Using either of the other options (`dedicated` or `host`) costs at least `$2/hr`."

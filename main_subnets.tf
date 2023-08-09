@@ -15,7 +15,6 @@ module "public_subnets" {
     var.tags,
     try(each.value.tags, null)
   )
-
 }
 
 module "private_subnets" {

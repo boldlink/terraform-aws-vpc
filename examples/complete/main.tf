@@ -46,4 +46,35 @@ module "complete_vpc" {
       cidrs = local.redshift_subnets
     }
   }
+  
+    vpc_endpoints = [
+    {
+      service_name          = "com.amazonaws.eu-west-1.ssm"
+      private_dns_enabled   = true
+      endpoint_subnet_scope = "internal"
+      endpoint_type         = "Interface"
+      tags                  = merge({ "Name" = var.name }, var.tags)
+    },
+    {
+      service_name          = "com.amazonaws.eu-west-1.ec2messages"
+      private_dns_enabled   = true
+      endpoint_subnet_scope = "internal"
+      endpoint_type         = "Interface"
+      tags                  = merge({ "Name" = var.name }, var.tags)
+    },
+    {
+      service_name          = "com.amazonaws.eu-west-1.ssmmessages"
+      private_dns_enabled   = true
+      endpoint_subnet_scope = "internal"
+      endpoint_type         = "Interface"
+      tags                  = merge({ "Name" = var.name }, var.tags)
+    },
+    {
+      service_name          = "com.amazonaws.eu-west-1.kms"
+      private_dns_enabled   = true
+      endpoint_subnet_scope = "internal"
+      endpoint_type         = "Interface"
+      tags                  = merge({ "Name" = var.name }, var.tags)
+    }
+  ]
 }

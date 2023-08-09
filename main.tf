@@ -174,3 +174,47 @@ resource "aws_internet_gateway" "main" {
     var.tags,
   )
 }
+
+## SG for Interface endpoint
+resource "aws_security_group" "allow_443" {
+  count       = length(var.vpc_endpoints) > 0 && try(contains([for ep in var.vpc_endpoints : try(ep["endpoint_type"], null)], "Interface"), false) ? 1 : 0
+  name        = "vpce.interface_endpoint.allow_443"
+  description = "Allow VPC Endpoints SSL/TLS inbound traffic"
+  vpc_id      = aws_vpc.main.id
+  tags        = merge(
+    {
+      "Name" = var.name
+    },
+    var.tags,
+  )
+
+  ingress {
+    description = "Allow traffic for Interface VPC Endpoints"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = [aws_vpc.main.cidr_block]
+  }
+}
+
+resource "aws_vpc_endpoint" "endpoint" {
+  count               = length(var.vpc_endpoints) > 0 ? length(var.vpc_endpoints) : 0
+  vpc_id              = aws_vpc.main.id
+  service_name        = try(var.vpc_endpoints[count.index]["service_name"], null)
+  auto_accept         = try(var.vpc_endpoints[count.index]["auto_accept"], null)
+  policy              = try(var.vpc_endpoints[count.index]["policy"], null)
+  private_dns_enabled = try(var.vpc_endpoints[count.index]["private_dns_enabled"], null)
+  route_table_ids     = try([var.vpc_endpoints[count.index]["route_table_ids"]], [])
+
+  security_group_ids = (try(var.vpc_endpoints[count.index]["endpoint_type"], null) == "Interface") ? [try(aws_security_group.allow_443[0].id, null)] : []
+  subnet_ids = (
+    try(var.vpc_endpoints[count.index]["endpoint_subnet_scope"], "") == "private" ? local.private_subnets :
+    try(var.vpc_endpoints[count.index]["endpoint_subnet_scope"], "") == "public" ? local.public_subnets :
+    try(var.vpc_endpoints[count.index]["endpoint_subnet_scope"], "") == "internal" ? local.internal_subnets :
+    []
+  )
+
+  vpc_endpoint_type = try(var.vpc_endpoints[count.index]["endpoint_type"], null)
+  depends_on        = [aws_security_group.allow_443[0]]
+  tags              = var.tags
+}

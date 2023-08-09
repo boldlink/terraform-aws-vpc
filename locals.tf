@@ -8,7 +8,10 @@ locals {
   vpc_role_policy   = data.aws_iam_policy_document.role_policy.json
   # vpc_s3_role_policy   = var.vpc_s3_role_policy == null ? data.aws_iam_policy_document.s3_role_policy.json : var.vpc_s3_role_policy
   # vpc_s3_bucket_policy = var.vpc_s3_bucket_policy == null ? data.aws_iam_policy_document.s3_bucket_policy.json : var.vpc_s3_bucket_policy
-  log_format = var.log_destination_type == "s3" ? var.log_format : null
+  log_format       = var.log_destination_type == "s3" ? var.log_format : null
+  private_subnets  = slice(flatten([for subnet_module in module.private_subnets : subnet_module.subnet_ids]), 0, 3)
+  public_subnets   = slice(flatten([for subnet_module in module.public_subnets : subnet_module.subnet_ids]), 0, 3)
+  internal_subnets = slice(flatten([for subnet_module in module.internal_subnets : subnet_module.subnet_ids]), 0, 3)
 
   nat_gateways = [
     data.aws_nat_gateways.all.*.ids

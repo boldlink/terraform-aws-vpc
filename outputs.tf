@@ -86,3 +86,31 @@ output "flow_logs_tags_all" {
   value       = aws_flow_log.main.tags_all
   description = "A map of tags assigned to the resource, including those inherited from the provider [default_tags configuration block](https://registry.terraform.io/docs/providers/aws/index#default_tags-configuration-block)."
 }
+
+output "public_subnets" {
+  value       = module.public_subnets
+  description = "Public subnet IDs"
+}
+
+output "public_subnet_ids_map" {
+  description = "Map of subnet names to their IDs from the public subnets submodule"
+  value = {
+    for subnet_key, subnet_module in module.public_subnets : subnet_key => subnet_module.subnet_ids
+  }
+}
+
+output "public_subnet_ids" {
+  description = "List of subnet IDs from the public subnets submodule"
+  value       = flatten([for subnet_module in module.public_subnets : subnet_module.subnet_ids])
+}
+
+output "private_subnet_ids" {
+  description = "List of subnet IDs from the private subnets submodule"
+  value       = flatten([for subnet_module in module.private_subnets : subnet_module.subnet_ids])
+}
+
+output "internal_subnet_ids" {
+  description = "List of subnet IDs from the internal subnets submodule"
+  value       = flatten([for subnet_module in module.internal_subnets : subnet_module.subnet_ids])
+}
+
