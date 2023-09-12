@@ -22,6 +22,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - feat: Enable VPC endpoints and add examples
 - fix: CKV2_AWS_19: "Ensure that all EIP addresses allocated to a VPC are attached to EC2 instances"
 
+## [3.1.0] - 2023-9-12
+### Description
+- feat: Added subnet IDs to the output. Initially the IDs had to be obtained using data sources where they were required in the same deployment
+- feat: removed unused vpc endpoints submodule
+
 ## [3.0.4] - 2023-5-26
 ### Description
 - fix: removed deprecated output `enable_classiclink`
@@ -76,8 +81,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Stand alone VPC created only with default security
 
 
-[Unreleased]: https://github.com/boldlink/terraform-aws-vpc/compare/3.0.4...HEAD
+[Unreleased]: https://github.com/boldlink/terraform-aws-vpc/compare/3.1.0...HEAD
 
+[3.1.0]: https://github.com/boldlink/terraform-aws-vpc/releases/tag/3.1.0
 [3.0.4]: https://github.com/boldlink/terraform-aws-vpc/releases/tag/3.0.4
 [3.0.3]: https://github.com/boldlink/terraform-aws-vpc/releases/tag/3.0.3
 [3.0.2]: https://github.com/boldlink/terraform-aws-vpc/releases/tag/3.0.2
