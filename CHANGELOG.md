@@ -8,7 +8,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - fix: count conditional for creating routes for NAT Gateway brings an error when no natgateway is specified, i.e neither "single" nor "multi" is specified. This in turn requires two deployments to remove unwanted Nat Gateway
 - fix: Remove `enable_private_subnets` variable from public subnets module and instead add a condition in private subnets module
 - feat: Improve the documentation and examples for the subnets submodules (public; private; internal)
-- feat: Improve the documentation and examples for the endpoints sub module
 - feat: Improve the documentation and examples for the vpc-ipam sub module
 - feat: Add the option to set as default VPC
 - feat: Re-enable vpc logs export to s3
@@ -19,7 +18,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - feat: Allow to attach an existing eip to the nat gateway(s)
 - feat: Remove the data source for the nat gw discovery and make it an option on the private module to remove dependencies
 - feat: Test and add to complete example ipv6 support
-- feat: Enable VPC endpoints and add examples
 - fix: CKV2_AWS_19: "Ensure that all EIP addresses allocated to a VPC are attached to EC2 instances"
 
 ## [3.1.0] - 2023-9-12
