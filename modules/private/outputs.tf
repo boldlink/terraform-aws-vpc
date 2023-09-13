@@ -1,4 +1,4 @@
 output "subnets" {
   description = "Output all subnet information"
-  value       = aws_subnet.private.*
+  value       = aws_subnet.private[*].id
 }
