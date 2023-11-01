@@ -18,12 +18,12 @@ resource "aws_route_table" "internal" {
 ##########################################################################################
 
 resource "aws_subnet" "internal" {
-  count             = length(var.cidrs) > 0 ? length(var.cidrs) : 0
-  vpc_id            = var.vpc_id
-  cidr_block        = element(var.cidrs, count.index)
-  availability_zone = element(var.availability_zone, count.index)
-  # ipv6_cidr_block = element(var.ipv6_cidrs, count.index)
-  # assign_ipv6_address_on_creation = var.assign_ipv6_address_on_creation
+  count                           = length(var.cidrs) > 0 ? length(var.cidrs) : 0
+  vpc_id                          = var.vpc_id
+  cidr_block                      = element(var.cidrs, count.index)
+  availability_zone               = element(var.availability_zone, count.index)
+  ipv6_cidr_block                 = var.assign_generated_ipv6_cidr_block && length(var.internal_subnet_ipv6_prefixes) > 0 ? cidrsubnet(var.ipv6_cidr_block, 8, var.internal_subnet_ipv6_prefixes[count.index]) : null
+  assign_ipv6_address_on_creation = var.assign_ipv6_address_on_creation
   tags = merge(
     {
       "Name" = "${var.vpc_name}.${var.name}.int.${count.index}"

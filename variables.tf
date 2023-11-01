@@ -26,12 +26,6 @@ variable "ipv4_netmask_length" {
   default     = null
 }
 
-variable "ipv6_cidr_block" {
-  type        = string
-  description = "(Optional) IPv6 CIDR block to request from an IPAM Pool. Can be set explicitly or derived from IPAM using `ipv6_netmask_length`."
-  default     = null
-}
-
 variable "ipv6_ipam_pool_id" {
   type        = string
   description = "(Optional) IPAM Pool ID for a IPv6 pool. Conflicts with `assign_generated_ipv6_cidr_block`."
@@ -48,6 +42,24 @@ variable "ipv6_cidr_block_network_border_group" {
   type        = string
   description = "(Optional) By default when an IPv6 CIDR is assigned to a VPC a default ipv6_cidr_block_network_border_group will be set to the region of the VPC. This can be changed to restrict advertisement of public addresses to specific Network Border Groups such as LocalZones."
   default     = null
+}
+
+variable "public_subnet_ipv6_prefixes" {
+  type        = list(string)
+  description = "values to use for the ipv6_cidr_block when creating public subnets. This is a list of integers between 0 and 255. The length of this list must be equal to the number of public subnets."
+  default     = []
+}
+
+variable "private_subnet_ipv6_prefixes" {
+  type        = list(string)
+  description = "values to use for the ipv6_cidr_block when creating private subnets. This is a list of integers between 0 and 255. The length of this list must be equal to the number of public subnets."
+  default     = []
+}
+
+variable "internal_subnet_ipv6_prefixes" {
+  type        = list(string)
+  description = "values to use for the ipv6_cidr_block when creating internal subnets. This is a list of integers between 0 and 255. The length of this list must be equal to the number of public subnets."
+  default     = []
 }
 
 variable "enable_dns_support" {
@@ -221,15 +233,3 @@ variable "logs_bucket_arn" {
   type        = string
   default     = null
 }
-
-# variable "vpc_s3_role_policy" {
-#   description = "Override the default vpc flow log s3 policy"
-#   type        = string
-#   default     = null
-# }
-
-# variable "vpc_s3_bucket_policy" {
-#   description = "Override the default vpc flow log s3 bucket policy"
-#   type        = string
-#   default     = null
-# }

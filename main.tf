@@ -6,7 +6,6 @@ resource "aws_vpc" "main" {
   instance_tenancy                     = var.instance_tenancy
   ipv4_ipam_pool_id                    = var.ipv4_ipam_pool_id
   ipv4_netmask_length                  = var.ipv4_netmask_length
-  ipv6_cidr_block                      = var.ipv6_cidr_block
   ipv6_ipam_pool_id                    = var.ipv6_ipam_pool_id
   ipv6_netmask_length                  = var.ipv6_netmask_length
   ipv6_cidr_block_network_border_group = var.ipv6_cidr_block_network_border_group
@@ -82,59 +81,7 @@ resource "aws_cloudwatch_log_group" "main" {
   )
 }
 
-#####################
-## VPC Logs S3 configuration
-#####################
-# resource "aws_s3_bucket" "main" {
-#   count  = var.log_destination_type == "s3" ? 1 : 0
-#   bucket = local.logs_bucket_name
-#   tags = merge(
-#     {
-#       "Name" = local.logs_bucket_name
-#     },
-#     var.tags,
-#   )
-# }
 
-# resource "aws_s3_bucket_acl" "main" {
-#   count  = var.log_destination_type == "s3" ? 1 : 0
-#   bucket = aws_s3_bucket.main[0].id
-#   acl    = "private"
-# }
-
-# resource "aws_s3_bucket_ownership_controls" "main" {
-#   count  = var.log_destination_type == "s3" ? 1 : 0
-#   bucket = aws_s3_bucket.main[0].id
-#   rule {
-#     object_ownership = "BucketOwnerEnforced"
-#   }
-# }
-
-# resource "aws_s3_bucket_policy" "main" {
-#   count  = var.log_destination_type == "s3" ? 1 : 0
-#   bucket = aws_s3_bucket.main[0].id
-#   policy = local.vpc_s3_bucket_policy
-# }
-
-# resource "aws_s3_bucket_server_side_encryption_configuration" "example" {
-# count  = var.log_destination_type == "s3" ? 1 : 0
-#   bucket = aws_s3_bucket.mybucket.bucket
-#   rule {
-#     apply_server_side_encryption_by_default {
-#       kms_master_key_id = aws_kms_key.mykey.arn
-#       sse_algorithm     = "aws:kms"
-#     }
-#   }
-# }
-
-# resource "aws_s3_bucket_public_access_block" "example" {
-#   count                   = var.log_destination_type == "s3" ? 1 : 0
-#   bucket                  = aws_s3_bucket.main[0].id
-#   block_public_acls       = true
-#   block_public_policy     = true
-#   ignore_public_acls      = true
-#   restrict_public_buckets = true
-# }
 
 #####################
 ## DHCP options Set

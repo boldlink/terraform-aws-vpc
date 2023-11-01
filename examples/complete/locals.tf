@@ -6,4 +6,6 @@ locals {
   database_subnets    = [cidrsubnet(var.cidr_block, 8, 13), cidrsubnet(var.cidr_block, 8, 14), cidrsubnet(var.cidr_block, 8, 15)]
   redshift_subnets    = [cidrsubnet(var.cidr_block, 8, 16), cidrsubnet(var.cidr_block, 8, 17), cidrsubnet(var.cidr_block, 8, 18)]
   override_azs        = ["${data.aws_region.current.id}a", "${data.aws_region.current.id}a", "${data.aws_region.current.id}a"]
+  region              = data.aws_region.current.id
+  account_id          = data.aws_caller_identity.current.account_id
 }

@@ -13,17 +13,29 @@ variable "vpc_id" {
   type        = string
 }
 
-# variable "ipv6_cidrs" {
-#   description = "Internal subnet ipv4 CIDR list"
-#   type        = list(string)
-#   default     = null
-# }
+variable "ipv6_cidr_block" {
+  description = "VPC ipv6 CIDR"
+  type        = string
+  default     = null
+}
 
-# variable "assign_ipv6_address_on_creation" {
-#   description = "(Optional) Specify true to indicate that network interfaces created in the specified subnet should be assigned an IPv6 address. Default is false"
-#   type        = bool
-#   default     = false
-# }
+variable "assign_ipv6_address_on_creation" {
+  description = "(Optional) Specify true to indicate that network interfaces created in the specified subnet should be assigned an IPv6 address. Default is false"
+  type        = bool
+  default     = false
+}
+
+variable "assign_generated_ipv6_cidr_block" {
+  type        = bool
+  description = "This variable here is used to enable routes and other IPv6 related resources, defaults to `false`"
+  default     = false
+}
+
+variable "internal_subnet_ipv6_prefixes" {
+  type        = list(string)
+  description = "values to use for the ipv6_cidr_block when creating internal subnets. This is a list of integers between 0 and 255. The length of this list must be equal to the number of public subnets."
+  default     = []
+}
 
 variable "tags" {
   description = "The map of tags to add to module resources"
