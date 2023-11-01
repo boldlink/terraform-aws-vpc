@@ -44,24 +44,6 @@ variable "ipv6_cidr_block_network_border_group" {
   default     = null
 }
 
-variable "public_subnet_ipv6_prefixes" {
-  type        = list(string)
-  description = "values to use for the ipv6_cidr_block when creating public subnets. This is a list of integers between 0 and 255. The length of this list must be equal to the number of public subnets."
-  default     = []
-}
-
-variable "private_subnet_ipv6_prefixes" {
-  type        = list(string)
-  description = "values to use for the ipv6_cidr_block when creating private subnets. This is a list of integers between 0 and 255. The length of this list must be equal to the number of public subnets."
-  default     = []
-}
-
-variable "internal_subnet_ipv6_prefixes" {
-  type        = list(string)
-  description = "values to use for the ipv6_cidr_block when creating internal subnets. This is a list of integers between 0 and 255. The length of this list must be equal to the number of public subnets."
-  default     = []
-}
-
 variable "enable_dns_support" {
   type        = bool
   description = "(Optional) A boolean flag to enable/disable DNS support in the VPC. Defaults `true`."

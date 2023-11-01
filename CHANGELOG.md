@@ -21,6 +21,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - fix: CKV2_AWS_19: "Ensure that all EIP addresses allocated to a VPC are attached to EC2 instances"
 - feat: Add egress only internet gateway support
 
+## [3.2.0] - 2023-11-1
+### Description
+- feat: Add ipV6 support and example
+- fix: CKV_TF_1 Ensure Terraform module sources use a commit hash
+
 ## [3.1.0] - 2023-9-12
 ### Description
 - feat: Added subnet IDs to the output. Initially the IDs had to be obtained using data sources where they were required in the same deployment

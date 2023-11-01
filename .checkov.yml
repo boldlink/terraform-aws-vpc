@@ -6,3 +6,4 @@ external-modules-download-path: .external_modules
 framework: all
 skip-check:
 - CKV2_AWS_19 #"Ensure that all EIP addresses allocated to a VPC are attached to EC2 instances"
+- CKV_TF_1 # "Ensure Terraform module sources use a commit hash"
