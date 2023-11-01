@@ -38,7 +38,7 @@ This module creates private subnets.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.16.2 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.23.1 |
 
 ## Modules
 
@@ -48,6 +48,7 @@ No modules.
 
 | Name | Type |
 |------|------|
+| [aws_route.private_ipv6_nat_gateway](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route) | resource |
 | [aws_route.private_nat_gateway](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route) | resource |
 | [aws_route_table.private](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route_table) | resource |
 | [aws_route_table_association.private](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route_table_association) | resource |
@@ -57,10 +58,14 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_assign_generated_ipv6_cidr_block"></a> [assign\_generated\_ipv6\_cidr\_block](#input\_assign\_generated\_ipv6\_cidr\_block) | This variable here is used to enable routes and other IPv6 related resources, defaults to `false` | `bool` | `false` | no |
+| <a name="input_assign_ipv6_address_on_creation"></a> [assign\_ipv6\_address\_on\_creation](#input\_assign\_ipv6\_address\_on\_creation) | (Optional) Specify true to indicate that network interfaces created in the specified subnet should be assigned an IPv6 address. Default is false | `bool` | `false` | no |
 | <a name="input_availability_zone"></a> [availability\_zone](#input\_availability\_zone) | The AZs to use to assign each subnet to | `list(string)` | `[]` | no |
 | <a name="input_cidrs"></a> [cidrs](#input\_cidrs) | Private subnet ipv4 CIDR list | `list(string)` | n/a | yes |
+| <a name="input_ipv6_cidr_block"></a> [ipv6\_cidr\_block](#input\_ipv6\_cidr\_block) | VPC ipv6 CIDR | `string` | `null` | no |
 | <a name="input_name"></a> [name](#input\_name) | The private subnet name | `string` | n/a | yes |
 | <a name="input_nat_gateway_ids"></a> [nat\_gateway\_ids](#input\_nat\_gateway\_ids) | The internet gateway ID(s) to use on the route of the public internet traffic | `list(string)` | n/a | yes |
+| <a name="input_private_subnet_ipv6_prefixes"></a> [private\_subnet\_ipv6\_prefixes](#input\_private\_subnet\_ipv6\_prefixes) | values to use for the ipv6\_cidr\_block when creating private subnets. This is a list of integers between 0 and 255. The length of this list must be equal to the number of public subnets. | `list(string)` | `[]` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | The map of tags to add to module resources | `map(string)` | `{}` | no |
 | <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | The VPC ID to associate with | `string` | n/a | yes |
 | <a name="input_vpc_name"></a> [vpc\_name](#input\_vpc\_name) | This value is used by the private subnets module to make it easier to search for the nat gateways through a specific tag | `string` | `null` | no |

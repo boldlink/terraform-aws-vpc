@@ -38,7 +38,7 @@ This module creates public subnets.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.16.2 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.23.1 |
 
 ## Modules
 
@@ -53,6 +53,7 @@ No modules.
 | [aws_nat_gateway.multi](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/nat_gateway) | resource |
 | [aws_nat_gateway.single](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/nat_gateway) | resource |
 | [aws_route.public_internet_gateway](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route) | resource |
+| [aws_route.public_internet_gateway_ipv6](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route) | resource |
 | [aws_route_table.public](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route_table) | resource |
 | [aws_route_table_association.public](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route_table_association) | resource |
 | [aws_subnet.public](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/subnet) | resource |
@@ -61,14 +62,18 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_assign_generated_ipv6_cidr_block"></a> [assign\_generated\_ipv6\_cidr\_block](#input\_assign\_generated\_ipv6\_cidr\_block) | This variable here is used to enable routes and other IPv6 related resources, defaults to `false` | `bool` | `false` | no |
+| <a name="input_assign_ipv6_address_on_creation"></a> [assign\_ipv6\_address\_on\_creation](#input\_assign\_ipv6\_address\_on\_creation) | (Optional) Specify true to indicate that network interfaces created in the specified subnet should be assigned an IPv6 address. Default is false | `bool` | `false` | no |
 | <a name="input_availability_zone"></a> [availability\_zone](#input\_availability\_zone) | The AZs to use to assign each subnet to | `list(string)` | n/a | yes |
 | <a name="input_cidrs"></a> [cidrs](#input\_cidrs) | Public subnet ipv4 CIDR list | `list(string)` | n/a | yes |
 | <a name="input_enable_private_subnets"></a> [enable\_private\_subnets](#input\_enable\_private\_subnets) | Activate private subnets module | `bool` | `false` | no |
 | <a name="input_gateway_id"></a> [gateway\_id](#input\_gateway\_id) | The internet gateway ID to use on the route of the public internet traffic | `string` | n/a | yes |
+| <a name="input_ipv6_cidr_block"></a> [ipv6\_cidr\_block](#input\_ipv6\_cidr\_block) | VPC ipv6 CIDR | `string` | `null` | no |
 | <a name="input_map_public_ip_on_launch"></a> [map\_public\_ip\_on\_launch](#input\_map\_public\_ip\_on\_launch) | Set the standard behavior for public ip assignement on ec2 launch, for public subnets the default should be true | `bool` | `true` | no |
 | <a name="input_name"></a> [name](#input\_name) | The public subnet name | `string` | n/a | yes |
 | <a name="input_nat"></a> [nat](#input\_nat) | Set your NatGw type, acceptable values are `single` for 1x NatGw only in a single AZ or `multi` for multiple NatGw's one per subnet | `string` | `null` | no |
 | <a name="input_propagating_vgws"></a> [propagating\_vgws](#input\_propagating\_vgws) | (Optional) A list of virtual gateways for propagation. | `list(string)` | `[]` | no |
+| <a name="input_public_subnet_ipv6_prefixes"></a> [public\_subnet\_ipv6\_prefixes](#input\_public\_subnet\_ipv6\_prefixes) | values to use for the ipv6\_cidr\_block when creating public subnets. This is a list of integers between 0 and 255. The length of this list must be equal to the number of public subnets. | `list(string)` | `[]` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | The map of tags to add to module resources | `map(string)` | `{}` | no |
 | <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | The VPC ID to associate with | `string` | n/a | yes |
 | <a name="input_vpc_name"></a> [vpc\_name](#input\_vpc\_name) | This value is used by the private subnets module to make it easier to search for the nat gateways through a specific tag | `string` | `null` | no |

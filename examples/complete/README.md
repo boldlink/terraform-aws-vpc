@@ -26,18 +26,21 @@
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.16.2 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.23.1 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_complete_vpc"></a> [complete\_vpc](#module\_complete\_vpc) | ./../../ | n/a |
+| <a name="module_vpc_logs_bucket"></a> [vpc\_logs\_bucket](#module\_vpc\_logs\_bucket) | boldlink/s3/aws | 2.3.1 |
+| <a name="module_vpc_s3"></a> [vpc\_s3](#module\_vpc\_s3) | ./../../ | n/a |
 
 ## Resources
 
 | Name | Type |
 |------|------|
+| [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
 
 ## Inputs
