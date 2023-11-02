@@ -79,7 +79,7 @@ module "vpc_s3" {
       cidrs                           = local.eks_public_subnets
       map_public_ip_on_launch         = true
       assign_ipv6_address_on_creation = true
-      private_subnet_ipv6_prefixes    = [4, 5, 6]
+      public_subnet_ipv6_prefixes     = [4, 5, 6]
       nat                             = "multi"
     }
   }
