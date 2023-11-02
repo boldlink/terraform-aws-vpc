@@ -51,12 +51,12 @@ module "complete_vpc" {
 #### Example of S3 destination
 
 
-module "vpc_logs_bucket" {
-  source  = "boldlink/s3/aws"
-  version = "2.3.1"
-  bucket  = "${var.name}-logs-${local.region}-${local.account_id}"
-  tags    = merge({ "Name" = "${var.name}-logs-${local.region}-${local.account_id}" }, var.tags)
-}
+#module "vpc_logs_bucket" {
+#  source  = "boldlink/s3/aws"
+#  version = "2.3.1"
+#  bucket  = "${var.name}-logs-${local.region}-${local.account_id}"
+#  tags    = merge({ "Name" = "${var.name}-logs-${local.region}-${local.account_id}" }, var.tags)
+#}
 
 module "vpc_s3" {
   source                               = "./../../"
