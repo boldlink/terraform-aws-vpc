@@ -19,6 +19,7 @@ This terraform module creates a VPC, it is an opininated module of how to create
 - Public which are accessible directly from the internet and have an valid public IpV4/Ipv6 address.
 - Private wich are not directly accessible from the internet but can reach the internet.
 - Internal or isolated which can only be accessed by other devices on the same VPC.
+- IpV6 is supported and can be enabled using `assign_generated_ipv6_cidr_block` and specifying the prefixes for a 8 octets subnets, see the [examples/complete](./examples/complete/main.tf).
 
 Previous modules had repetitive code when it came to subnets, to resolve this we made the three types into sub-modules that can
 be added until you run out of address spaces within the 3 types.
