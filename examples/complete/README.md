@@ -26,13 +26,14 @@
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.16.2 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.23.1 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_complete_vpc"></a> [complete\_vpc](#module\_complete\_vpc) | ./../../ | n/a |
+| <a name="module_vpc_s3"></a> [vpc\_s3](#module\_vpc\_s3) | ./../../ | n/a |
 
 ## Resources
 

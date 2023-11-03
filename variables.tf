@@ -26,12 +26,6 @@ variable "ipv4_netmask_length" {
   default     = null
 }
 
-variable "ipv6_cidr_block" {
-  type        = string
-  description = "(Optional) IPv6 CIDR block to request from an IPAM Pool. Can be set explicitly or derived from IPAM using `ipv6_netmask_length`."
-  default     = null
-}
-
 variable "ipv6_ipam_pool_id" {
   type        = string
   description = "(Optional) IPAM Pool ID for a IPv6 pool. Conflicts with `assign_generated_ipv6_cidr_block`."
@@ -221,15 +215,3 @@ variable "logs_bucket_arn" {
   type        = string
   default     = null
 }
-
-# variable "vpc_s3_role_policy" {
-#   description = "Override the default vpc flow log s3 policy"
-#   type        = string
-#   default     = null
-# }
-
-# variable "vpc_s3_bucket_policy" {
-#   description = "Override the default vpc flow log s3 bucket policy"
-#   type        = string
-#   default     = null
-# }

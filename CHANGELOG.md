@@ -19,6 +19,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - feat: Remove the data source for the nat gw discovery and make it an option on the private module to remove dependencies
 - feat: Test and add to complete example ipv6 support
 - fix: CKV2_AWS_19: "Ensure that all EIP addresses allocated to a VPC are attached to EC2 instances"
+- feat: Add egress only internet gateway support
+
+## [3.2.0] - 2023-11-1
+### Description
+- feat: Add ipV6 support and example
+- fix: CKV_TF_1 Ensure Terraform module sources use a commit hash
 
 ## [3.1.0] - 2023-9-12
 ### Description
@@ -79,8 +85,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Stand alone VPC created only with default security
 
 
-[Unreleased]: https://github.com/boldlink/terraform-aws-vpc/compare/3.1.0...HEAD
+[Unreleased]: https://github.com/boldlink/terraform-aws-vpc/compare/3.2.0...HEAD
 
+[3.2.0]: https://github.com/boldlink/terraform-aws-vpc/releases/tag/3.2.0
 [3.1.0]: https://github.com/boldlink/terraform-aws-vpc/releases/tag/3.1.0
 [3.0.4]: https://github.com/boldlink/terraform-aws-vpc/releases/tag/3.0.4
 [3.0.3]: https://github.com/boldlink/terraform-aws-vpc/releases/tag/3.0.3
