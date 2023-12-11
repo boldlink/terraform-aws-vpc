@@ -8,6 +8,11 @@ module "complete_vpc" {
   enable_private_subnets  = true
   enable_internal_subnets = true
   tags                    = var.tags
+  dhcp_domain_name        = "example.com"
+  domain_name_servers     = ["AmazonProvidedDNS"]
+  ntp_servers             = ["127.0.0.1"]
+  netbios_name_servers    = ["127.0.0.1"]
+  netbios_node_type       = 2
 
   public_subnets = {
     public1 = {
@@ -19,7 +24,7 @@ module "complete_vpc" {
       cidrs = local.eks_public_subnets
       tags = {
         "kubernetes.io/cluster/<cluster-name>" = "shared" # EKS public subnets
-        "kubernetes.io/role/elb"               = true     # Enable Alb controller tags for public alb/nlb
+        "kubernetes.io/role/elb"               = 1        # Enable Alb controller tags for public alb/nlb
       }
     }
   }
@@ -32,7 +37,7 @@ module "complete_vpc" {
       cidrs = local.eks_private_subnets
       tags = {
         "kubernetes.io/cluster/<cluster-name>" = "shared" # EKS private subnets
-        "kubernetes.io/role/internal-elb"      = true     # Enable Alb controller tags for internal alb/nlb
+        "kubernetes.io/role/internal-elb"      = 1        # Enable Alb controller tags for internal alb/nlb
       }
     }
   }
@@ -95,7 +100,7 @@ module "vpc_s3" {
       private_subnet_ipv6_prefixes    = [10, 11, 12]
       tags = {
         "kubernetes.io/cluster/<cluster-name>" = "shared" # EKS private subnets
-        "kubernetes.io/role/internal-elb"      = true     # Enable Alb controller tags for internal alb/nlb
+        "kubernetes.io/role/internal-elb"      = 1        # Enable Alb controller tags for internal alb/nlb
       }
     }
   }
