@@ -21,6 +21,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - fix: CKV2_AWS_19: "Ensure that all EIP addresses allocated to a VPC are attached to EC2 instances"
 - feat: Add egress only internet gateway support
 
+## [3.2.1]- 2023-12-11
+- fix: eks elb tag values in subnet tags
+- added a VPC example with IPAM-allocated IPV4 CIDR blocks
+- added dhcp options in complete example
+
+
 ## [3.2.0] - 2023-11-1
 ### Description
 - feat: Add ipV6 support and example
@@ -85,8 +91,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Stand alone VPC created only with default security
 
 
-[Unreleased]: https://github.com/boldlink/terraform-aws-vpc/compare/3.2.0...HEAD
+[Unreleased]: https://github.com/boldlink/terraform-aws-vpc/compare/3.2.1...HEAD
 
+[3.2.1]: https://github.com/boldlink/terraform-aws-vpc/releases/tag/3.2.1
 [3.2.0]: https://github.com/boldlink/terraform-aws-vpc/releases/tag/3.2.0
 [3.1.0]: https://github.com/boldlink/terraform-aws-vpc/releases/tag/3.1.0
 [3.0.4]: https://github.com/boldlink/terraform-aws-vpc/releases/tag/3.0.4
