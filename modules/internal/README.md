@@ -38,7 +38,7 @@ This module creates internal subnets.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.23.1 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.0.0 |
 
 ## Modules
 
