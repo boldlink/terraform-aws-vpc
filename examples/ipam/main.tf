@@ -12,7 +12,7 @@ resource "aws_vpc_ipam_pool" "ipv4" {
   ipam_scope_id  = aws_vpc_ipam.main.private_default_scope_id
   locale         = data.aws_region.current.name
   description    = "example ipv4 ipam pool"
-  tags = merge({ Name = var.name }, var.tags)
+  tags           = merge({ Name = var.name }, var.tags)
 }
 
 resource "aws_vpc_ipam_pool_cidr" "ipv4" {
@@ -32,15 +32,15 @@ module "ipam_v4" {
 
   public_subnets = {
     public = {
-      cidrs                           = local.public_subnets
-      map_public_ip_on_launch         = true
-      nat                             = "single"
+      cidrs                   = local.public_subnets
+      map_public_ip_on_launch = true
+      nat                     = "single"
     }
   }
 
   private_subnets = {
     private = {
-      cidrs                           = local.private_subnets
+      cidrs = local.private_subnets
     }
   }
   depends_on = [
