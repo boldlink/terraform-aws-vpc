@@ -15,9 +15,9 @@
 
 ## Description
 
-This terraform module creates a VPC, it is an opininated module of how to create a VPC - we only have 3 types of subnets:
+This terraform module creates a VPC, it is an opinionated module of how to create a VPC - we only have 3 types of subnets:
 - Public which are accessible directly from the internet and have an valid public IpV4/Ipv6 address.
-- Private wich are not directly accessible from the internet but can reach the internet.
+- Private which are not directly accessible from the internet but can reach the internet.
 - Internal or isolated which can only be accessed by other devices on the same VPC.
 - IpV6 is supported and can be enabled using `assign_generated_ipv6_cidr_block` and specifying the prefixes for a 8 octets subnets, see the [examples/complete](./examples/complete/main.tf).
 
@@ -38,6 +38,7 @@ Examples available [`here`](./examples)
 ```hcl
 module "minimum_vpc" {
   source                 = "boldlink/vpc/aws"
+  version                = "<provide_latest_version_here>"
   name                   = "minimum-vpc-example"
   cidr_block             = "172.16.0.0/16"
   enable_public_subnets  = true
