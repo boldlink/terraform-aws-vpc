@@ -11,20 +11,7 @@
 
 [<img src="https://avatars.githubusercontent.com/u/25388280?s=200&v=4" width="96"/>](https://boldlink.io)
 
-# AWS VPC internal subnets Terraform module
-
-## Description
-
-This module creates internal subnets.
-
-```hcl
-
-```
-## Documentation
-
-[Amazon VPC Documentation](https://docs.aws.amazon.com/vpc/latest/userguide/configure-subnets.html)
-
-[Terraform provider documentation](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/subnet)
+# Terraform  module example of VPC with IPAM-allocated CIDR blocks
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
@@ -32,7 +19,7 @@ This module creates internal subnets.
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.14.11 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.50.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.30.0 |
 
 ## Providers
 
@@ -42,36 +29,30 @@ This module creates internal subnets.
 
 ## Modules
 
-No modules.
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_ipam_v4"></a> [ipam\_v4](#module\_ipam\_v4) | ./../../ | n/a |
 
 ## Resources
 
 | Name | Type |
 |------|------|
-| [aws_route_table.internal](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route_table) | resource |
-| [aws_route_table_association.internal](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route_table_association) | resource |
-| [aws_subnet.internal](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/subnet) | resource |
+| [aws_vpc_ipam.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_ipam) | resource |
+| [aws_vpc_ipam_pool.ipv4](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_ipam_pool) | resource |
+| [aws_vpc_ipam_pool_cidr.ipv4](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_ipam_pool_cidr) | resource |
+| [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_assign_generated_ipv6_cidr_block"></a> [assign\_generated\_ipv6\_cidr\_block](#input\_assign\_generated\_ipv6\_cidr\_block) | This variable here is used to enable routes and other IPv6 related resources, defaults to `false` | `bool` | `false` | no |
-| <a name="input_assign_ipv6_address_on_creation"></a> [assign\_ipv6\_address\_on\_creation](#input\_assign\_ipv6\_address\_on\_creation) | (Optional) Specify true to indicate that network interfaces created in the specified subnet should be assigned an IPv6 address. Default is false | `bool` | `false` | no |
-| <a name="input_availability_zone"></a> [availability\_zone](#input\_availability\_zone) | The AZs to use to assign each subnet to | `list(string)` | `[]` | no |
-| <a name="input_cidrs"></a> [cidrs](#input\_cidrs) | Internal subnet ipv4 CIDR list | `list(string)` | n/a | yes |
-| <a name="input_internal_subnet_ipv6_prefixes"></a> [internal\_subnet\_ipv6\_prefixes](#input\_internal\_subnet\_ipv6\_prefixes) | values to use for the ipv6\_cidr\_block when creating internal subnets. This is a list of integers between 0 and 255. The length of this list must be equal to the number of public subnets. | `list(string)` | `[]` | no |
-| <a name="input_ipv6_cidr_block"></a> [ipv6\_cidr\_block](#input\_ipv6\_cidr\_block) | VPC ipv6 CIDR | `string` | `null` | no |
-| <a name="input_name"></a> [name](#input\_name) | The internal subnet name | `string` | n/a | yes |
-| <a name="input_tags"></a> [tags](#input\_tags) | The map of tags to add to module resources | `map(string)` | `{}` | no |
-| <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | The VPC ID to associate with | `string` | n/a | yes |
-| <a name="input_vpc_name"></a> [vpc\_name](#input\_vpc\_name) | This value is used by the private subnets module to make it easier to search for the nat gateways through a specific tag | `string` | `null` | no |
+| <a name="input_cidr_block"></a> [cidr\_block](#input\_cidr\_block) | The CIDR block of the vpc | `string` | `"10.0.0.0/16"` | no |
+| <a name="input_name"></a> [name](#input\_name) | The stack name | `string` | `"ipam-vpc-example"` | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | The resource tags to be applied | `map(string)` | <pre>{<br>  "Department": "DevOps",<br>  "Environment": "example",<br>  "LayerId": "Example",<br>  "LayerName": "Example",<br>  "Owner": "Boldlink",<br>  "Project": "Examples",<br>  "user::CostCenter": "terraform-registry"<br>}</pre> | no |
 
 ## Outputs
 
-| Name | Description |
-|------|-------------|
-| <a name="output_subnets"></a> [subnets](#output\_subnets) | Output all subnet information |
+No outputs.
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## Third party software
