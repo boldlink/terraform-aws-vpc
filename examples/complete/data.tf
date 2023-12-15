@@ -24,7 +24,7 @@ data "aws_iam_policy_document" "s3_bucket" {
     condition {
       test     = "StringEquals"
       variable = "aws:SourceAccount"
-      values   = ["${local.account_id}"]
+      values   = [local.account_id]
     }
 
     condition {
@@ -51,7 +51,7 @@ data "aws_iam_policy_document" "s3_bucket" {
     condition {
       test     = "StringEquals"
       variable = "aws:SourceAccount"
-      values   = ["${local.account_id}"]
+      values   = [local.account_id]
     }
 
     condition {
