@@ -1,3 +1,4 @@
+
 module "complete_vpc" {
   source                  = "./../../"
   name                    = var.name
@@ -55,13 +56,16 @@ module "complete_vpc" {
 
 #### Example of S3 destination
 
-
-#module "vpc_logs_bucket" {
-#  source  = "boldlink/s3/aws"
-#  version = "2.3.1"
-#  bucket  = "${var.name}-logs-${local.region}-${local.account_id}"
-#  tags    = merge({ "Name" = "${var.name}-logs-${local.region}-${local.account_id}" }, var.tags)
-#}
+module "vpc_logs_bucket" {
+  source                 = "boldlink/s3/aws"
+  version                = "2.3.1"
+  sse_sse_algorithm      = var.sse_algorithm
+  sse_bucket_key_enabled = var.sse_bucket_key_enabled
+  bucket_policy          = data.aws_iam_policy_document.s3_bucket.json
+  force_destroy          = var.force_destroy
+  bucket                 = local.bucket_name
+  tags                   = merge({ "Name" = local.bucket_name }, var.tags)
+}
 
 module "vpc_s3" {
   source                               = "./../../"
@@ -117,13 +121,14 @@ module "vpc_s3" {
       internal_subnet_ipv6_prefixes   = [16, 17, 18]
     }
   }
-  # log_destination_type  = "s3"
-  # logs_bucket_arn       = module.vpc_logs_bucket.arn
-  # destination_options   = {
-  #   file_format = "parquet"
-  #   hive_compatible_partitions = true
-  #   per_hour_partition = true
-  # }
+  log_destination_type = "s3"
+  logs_bucket_arn      = module.vpc_logs_bucket.arn
+  destination_options = {
+    file_format                = "parquet"
+    hive_compatible_partitions = true
+    per_hour_partition         = true
+  }
 
-  tags = var.tags
+  tags       = var.tags
+  depends_on = [module.vpc_logs_bucket]
 }

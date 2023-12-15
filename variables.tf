@@ -121,7 +121,7 @@ variable "max_aggregation_interval" {
 }
 
 variable "destination_options" {
-  type        = map(string)
+  type        = map(any)
   description = "(Optional) Describes the destination options for a flow log."
   default     = {}
 }
