@@ -8,7 +8,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - fix: count conditional for creating routes for NAT Gateway brings an error when no natgateway is specified, i.e neither "single" nor "multi" is specified. This in turn requires two deployments to remove unwanted Nat Gateway
 - fix: Remove `enable_private_subnets` variable from public subnets module and instead add a condition in private subnets module
 - feat: Improve the documentation and examples for the subnets submodules (public; private; internal)
-- feat: Improve the documentation and examples for the vpc-ipam sub module
 - feat: Add the option to set as default VPC
 - feat: Add KMS support for s3 and logs group
 - feat: support for public or private Nat Gateways
@@ -22,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [3.2.2] - 2023-12-15
 - fix: destination_options dynamic block
 - example vpc that stores flow logs in s3
+- removed ipam submodule
 
 ## [3.2.1]- 2023-12-11
 - fix: eks elb tag values in subnet tags

@@ -63,8 +63,8 @@ module "vpc_logs_bucket" {
   sse_bucket_key_enabled = var.sse_bucket_key_enabled
   bucket_policy          = data.aws_iam_policy_document.s3_bucket.json
   force_destroy          = var.force_destroy
-  bucket                 = "${var.name}-logs-${local.region}-${local.account_id}"
-  tags                   = merge({ "Name" = "${var.name}-logs-${local.region}-${local.account_id}" }, var.tags)
+  bucket                 = local.bucket_name
+  tags                   = merge({ "Name" = local.bucket_name }, var.tags)
 }
 
 module "vpc_s3" {

@@ -14,7 +14,7 @@ data "aws_iam_policy_document" "s3_bucket" {
       identifiers = ["delivery.logs.amazonaws.com"]
     }
     actions   = ["s3:PutObject"]
-    resources = ["arn:${local.partition}:s3:::${var.name}-logs-${local.region}-${local.account_id}/AWSLogs/aws-account-id=${local.account_id}/*", ]
+    resources = ["arn:${local.partition}:s3:::${local.bucket_name}/AWSLogs/aws-account-id=${local.account_id}/*", ]
     condition {
       test     = "StringEquals"
       variable = "s3:x-amz-acl"
@@ -45,7 +45,7 @@ data "aws_iam_policy_document" "s3_bucket" {
     actions = ["s3:GetBucketAcl"]
 
     resources = [
-      "arn:${local.partition}:s3:::${var.name}-logs-${local.region}-${local.account_id}"
+      "arn:${local.partition}:s3:::${local.bucket_name}"
     ]
 
     condition {
