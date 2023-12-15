@@ -92,8 +92,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Stand alone VPC created only with default security
 
 
-[Unreleased]: https://github.com/boldlink/terraform-aws-vpc/compare/3.2.1...HEAD
+[Unreleased]: https://github.com/boldlink/terraform-aws-vpc/compare/3.2.2...HEAD
 
+[3.2.2]: https://github.com/boldlink/terraform-aws-vpc/releases/tag/3.2.2
 [3.2.1]: https://github.com/boldlink/terraform-aws-vpc/releases/tag/3.2.1
 [3.2.0]: https://github.com/boldlink/terraform-aws-vpc/releases/tag/3.2.0
 [3.1.0]: https://github.com/boldlink/terraform-aws-vpc/releases/tag/3.1.0
