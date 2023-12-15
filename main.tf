@@ -39,7 +39,7 @@ resource "aws_flow_log" "main" {
   tags                     = merge({ "Name" = var.name }, var.tags)
 
   dynamic "destination_options" {
-    for_each = var.destination_options
+    for_each = length(keys(var.destination_options)) > 0 ? [var.destination_options] : []
     content {
       file_format                = lookup(destination_options.value, "file_format", null)
       hive_compatible_partitions = lookup(destination_options.value, "hive_compatible_partitions", null)
