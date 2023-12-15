@@ -10,22 +10,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - feat: Improve the documentation and examples for the subnets submodules (public; private; internal)
 - feat: Improve the documentation and examples for the vpc-ipam sub module
 - feat: Add the option to set as default VPC
-- feat: Re-enable vpc logs export to s3
 - feat: Add KMS support for s3 and logs group
 - feat: support for public or private Nat Gateways
 - feat: Public Subnets module - use one resource block for both the single and multi-nat gateways if possible
 - feat: Private Subnets module - Use a single route resource for both single and multi gateways option
 - feat: Allow to attach an existing eip to the nat gateway(s)
 - feat: Remove the data source for the nat gw discovery and make it an option on the private module to remove dependencies
-- feat: Test and add to complete example ipv6 support
 - fix: CKV2_AWS_19: "Ensure that all EIP addresses allocated to a VPC are attached to EC2 instances"
 - feat: Add egress only internet gateway support
+
+## [3.2.2] - 2023-12-15
+- fix: destination_options dynamic block
+- example vpc that stores flow logs in s3
 
 ## [3.2.1]- 2023-12-11
 - fix: eks elb tag values in subnet tags
 - added a VPC example with IPAM-allocated IPV4 CIDR blocks
 - added dhcp options in complete example
-
 
 ## [3.2.0] - 2023-11-1
 ### Description
