@@ -13,6 +13,13 @@
 
 # Terraform  module example of complete and most common configuration
 
+* This example is inteded to a) test the majority of functionality b) provide a baseline of a VPC deployment.
+* We have chosen to use the ` nat = "multi" ` in this example because production deployments should have multiple NAT gateways for redundancy and availability even if this means an additional cost. NOTE: non-production deployments can use ` nat = "single" ` to save on costs.
+* The `module.complete_vpc` has also EKS tagged subnets for demo and testing.
+* The `module.vpc_s3` is used to demo and test using s3 logging for VPC flow logs, default is AWS Cloudwatch Logs.
+* On the `module.vpc_s3` we also have IPV6 subnet groups for demo and testing.
+
+**NOTE:** This examples is intended to be used for testing and demo purposes only, ensure you understand the module and modify the example code to suit your requirements.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
