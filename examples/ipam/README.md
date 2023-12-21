@@ -13,6 +13,8 @@
 
 # Terraform  module example of VPC with IPAM-allocated CIDR blocks
 
+Example of using a external IPAM provider to allocate CIDR blocks for VPC, by in large implementations create the IPAM without requiring an external IPAM.
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 

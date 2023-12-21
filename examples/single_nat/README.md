@@ -11,7 +11,9 @@
 
 [<img src="https://avatars.githubusercontent.com/u/25388280?s=200&v=4" width="96"/>](https://boldlink.io)
 
-# single_nat
+# Terraform  module example of VPC with singl NAT gateway
+
+Development, or even Testing environments often don't require highly available network connectivity to the internet, this example shows how to deploy a VPC with a single NAT gateway (single AZ) ideal for non-production environments.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
