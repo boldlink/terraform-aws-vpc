@@ -18,6 +18,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - fix: CKV2_AWS_19: "Ensure that all EIP addresses allocated to a VPC are attached to EC2 instances"
 - feat: Add egress only internet gateway support
 
+## [3.3.0] - 2025-1-28
+- feat: adding the support for the route table outputs to the subnets submodules
+
 ## [3.2.2] - 2023-12-15
 - fix: destination_options dynamic block
 - example vpc that stores flow logs in s3
@@ -92,8 +95,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Stand alone VPC created only with default security
 
 
-[Unreleased]: https://github.com/boldlink/terraform-aws-vpc/compare/3.2.2...HEAD
+[Unreleased]: https://github.com/boldlink/terraform-aws-vpc/compare/3.3.0...HEAD
 
+[3.2.2]: https://github.com/boldlink/terraform-aws-vpc/releases/tag/3.2.2
 [3.2.2]: https://github.com/boldlink/terraform-aws-vpc/releases/tag/3.2.2
 [3.2.1]: https://github.com/boldlink/terraform-aws-vpc/releases/tag/3.2.1
 [3.2.0]: https://github.com/boldlink/terraform-aws-vpc/releases/tag/3.2.0
