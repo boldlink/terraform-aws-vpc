@@ -27,7 +27,6 @@ output "enable_dns_hostnames" {
   description = "Whether or not the VPC has DNS hostname support"
 }
 
-
 output "main_route_table_id" {
   value       = aws_vpc.main.main_route_table_id
   description = "The ID of the main route table associated with this VPC. Note that you can change a VPC's main route table by using an `aws_main_route_table_association`."
@@ -93,12 +92,27 @@ output "public_subnet_ids" {
   value       = flatten([for subnet_module in module.public_subnets : subnet_module.subnets])
 }
 
+output "public_route_table_ids" {
+  description = "List of subnet IDs from the public subnets submodule"
+  value       = flatten([for subnet_module in module.public_subnets : subnet_module.route_tables])
+}
+
 output "private_subnet_ids" {
   description = "List of subnet IDs from the private subnets submodule"
   value       = flatten([for subnet_module in module.private_subnets : subnet_module.subnets])
 }
 
+output "private_route_table_ids" {
+  description = "List of subnet IDs from the private subnets submodule"
+  value       = flatten([for subnet_module in module.private_subnets : subnet_module.route_tables])
+}
+
 output "internal_subnet_ids" {
   description = "List of subnet IDs from the internal subnets submodule"
   value       = flatten([for subnet_module in module.internal_subnets : subnet_module.subnets])
+}
+
+output "internal_route_table_ids" {
+  description = "List of subnet IDs from the internal subnets submodule"
+  value       = flatten([for subnet_module in module.internal_subnets : subnet_module.route_tables])
 }
